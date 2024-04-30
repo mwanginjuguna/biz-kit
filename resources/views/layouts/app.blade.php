@@ -62,7 +62,7 @@
                 </main>
             </div>
 
-            <livewire:layout.app-footer />
+            <x-parts.footer />
         </div>
     </div>
     </body>
