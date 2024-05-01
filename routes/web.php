@@ -8,7 +8,7 @@ Route::view('/blog', 'welcome')->name('blog');
 Route::view('/contact-me', 'welcome')->name('contact-me');
 
 Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
+    ->middleware(['auth', 'admin', 'verified'])
     ->name('dashboard');
 
 Route::view('profile', 'profile')

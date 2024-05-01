@@ -3,8 +3,8 @@
      aria-label="Sidebar">
     <div class="min-h-screen px-3 py-10 overflow-y-auto bg-slate-50 dark:bg-slate-800">
         <a href="/" class="flex items-center ps-2.5 mb-5" wire:navigate>
-            <img src="{{ asset('assets/logo.png') }}" class="h-6 me-3 sm:h-7" alt="{{ config('app.name') }} Logo" />
-            <span class="self-center font-semibold text-violet-600 dark:text-violet-500">{{ config('app.name') }}</span>
+            <x-application-logo />
+            <span class="pl-3 self-center font-semibold text-violet-600 dark:text-violet-500">{{ config('app.name') }}</span>
         </a>
 
         <ul class="mt-6 space-y-2 font-medium text-sm xL:text-base">
