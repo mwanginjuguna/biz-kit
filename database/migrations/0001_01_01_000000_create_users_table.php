@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('role')->default('U'); // U => User, A => Admin, D => Dev, etc
             $table->string('password');
             $table->rememberToken();
+            $table->softDeletes();
             $table->timestamps();
         });
 
