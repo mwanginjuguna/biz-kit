@@ -14,6 +14,10 @@ export default {
             fontFamily: {
                 serif: ['Poppins', ...defaultTheme.fontFamily.serif],
             },
+            screens: {
+                lg: '1050px',
+                xl: '1500px'
+            },
         },
     },
 

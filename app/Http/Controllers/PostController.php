@@ -89,6 +89,10 @@ class PostController extends Controller
      */
     public function show(Post $post): View
     {
+        $post->views += 1;
+        $post->save();
+
+
         return view('pages.post-view', [
             'post' => $post
         ]);

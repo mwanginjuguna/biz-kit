@@ -20,6 +20,9 @@
                     <x-nav-link :href="route('services')" :active="request()->routeIs('services')" wire:navigate>
                         {{ __('Services') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('products')" :active="request()->routeIs('products')" wire:navigate>
+                        {{ __('Products') }}
+                    </x-nav-link>
                     <x-nav-link :href="route('blog')" :active="request()->routeIs('blog')" wire:navigate>
                         {{ __('Blog') }}
                     </x-nav-link>
