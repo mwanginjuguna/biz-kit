@@ -7,7 +7,7 @@
         </h2>
     </x-slot>
 
-    <div class="min-h-screen bg-slate-50 dark:bg-slate-900 dark:text-skate-100">
+    <div class="min-h-screen bg-slate-50 dark:bg-slate-900 dark:text-skate-100 px-4">
         <div class="overflow-hidden shadow-sm sm:rounded-lg">
             <div class="container mx-auto mt-6 lg:mt-10 px-4">
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4 lg:gap-8">

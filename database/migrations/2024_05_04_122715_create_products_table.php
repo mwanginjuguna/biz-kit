@@ -17,8 +17,11 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->text('description');
             $table->string('category')->nullable();
+            $table->string('brand')->nullable();
             $table->decimal('price', 10, 2);
             $table->integer('stock_quantity')->default(1);
+            $table->text('return_policy')->nullable();
+            $table->string('shipped_from')->nullable();
             $table->string('image')->nullable();
             $table->boolean('is_active')->default(true);
             $table->timestamps();

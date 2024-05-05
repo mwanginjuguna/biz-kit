@@ -19,7 +19,10 @@ class Product extends Model
         'description',
         'price',
         'category',
+        'brand',
         'stock_quantity',
+        'return_policy',
+        'shipped_from',
         'image',
     ];
 
