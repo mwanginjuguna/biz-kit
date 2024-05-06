@@ -3,14 +3,12 @@
 namespace App\Livewire\Products;
 
 use App\Livewire\Forms\ProductCreateForm;
-use App\Models\Category;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
 class ProductCreate extends Component
 {
-
     use WithFileUploads;
 
     public ProductCreateForm $form;
@@ -22,7 +20,7 @@ class ProductCreate extends Component
     public function productSave()
     {
         //
-        $imagePath = Storage::disk('public')->putFileAs('products', $this->productImage, $this->form->name.$this->productImage->getClientOriginalName());
+        $imagePath = Storage::disk('public')->putFileAs('products', $this->productImage, $this->productImage->getClientOriginalName());
 
         $this->form->image = $imagePath;
 
@@ -35,8 +33,6 @@ class ProductCreate extends Component
 
     public function render()
     {
-        return view('livewire.products.product-create', [
-            'categories' => Category::all()
-        ]);
+        return view('livewire.products.product-create');
     }
 }

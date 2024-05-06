@@ -24,14 +24,18 @@ class ProductFactory extends Factory
         $name = $this->faker->sentence(5);
 
         $productCategories = ['Clothing', 'Phones', 'Electronics', 'Fitness', 'Fashion', 'Food'];
+        $productBrands = ['Gucci', 'Mamba', 'Afrikana', 'Simba', 'Tesla', 'Sony'];
 
         return [
             'name' => $name,
             'slug' => Str::slug($name),
             'description' => $this->faker->sentences(4, true),
             'category' => Arr::random($productCategories),
+            'brand' => Arr::random($productBrands),
             'price' => $this->faker->randomFloat(2, 3, 200),
             'stock_quantity' => $this->faker->randomNumber(),
+            'return_policy' => Arr::random(['30 days', '3 days', '7 days', '14 days']),
+            'shipped_from' => $this->faker->city(),
             'image' => Arr::random($productImages),
         ];
     }

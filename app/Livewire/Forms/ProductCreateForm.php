@@ -22,6 +22,7 @@ class ProductCreateForm extends Form
     public string $returnPolicy = '';
     public int $stockQuantity = 2;
     public string $category = '';
+    public string $shippedFrom = '';
 
     public string $image = '';
 
@@ -29,14 +30,16 @@ class ProductCreateForm extends Form
     {
         $this->validate();
 
-        Product::create([
+        $product = Product::create([
             'name' => $this->name,
             'slug' => Str::slug($this->name),
             'category' => $this->category,
             'price' => $this->price,
             'brand' => $this->brand,
+            'description' => $this->description,
             'stock_quantity' => $this->stockQuantity,
             'return_policy' => $this->returnPolicy,
+            'shipped_from' => $this->shippedFrom,
             'image' => $this->image
         ]);
     }

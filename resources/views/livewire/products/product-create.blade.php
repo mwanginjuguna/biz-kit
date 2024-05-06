@@ -51,15 +51,13 @@
                 </div>
 
                 <div>
-                    <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
-                    <select id="category"
-                            wire:model="form.category"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                        <option selected="">Select category</option>
-                        @foreach($categories as $category)
-                            <option value="{{ $category->name }}">{{ $category->name }}</option>
-                        @endforeach
-                    </select>
+                    <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product Category</label>
+                    <input type="text"
+                           name="category"
+                           wire:model="form.category"
+                           id="category"
+                           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                           placeholder="Ex. Fashion, Fitness, Electronics, Phones...">
                     @error('form.category')<p class="text-red-600 text-sm font-medium">{{ $message }}</p>@enderror
                 </div>
 
@@ -74,6 +72,19 @@
                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                            placeholder="Products in stock e.g. 12, 10">
                     @error('form.stockQuantity')<p class="text-red-600 text-sm font-medium">{{ $message }}</p>@enderror
+                </div>
+
+                <div>
+                    <label for="shipped-from" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                        Shipped From - <span class="text-xs text-gray-600">Optional</span>
+                    </label>
+                    <input type="text"
+                           name="shipped-from"
+                           id="shipped-from"
+                           wire:model="form.shippedFrom"
+                           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                           placeholder="Shipping location e.g. Nairobi, Abroad, China">
+                    @error('form.shippedFrom')<p class="text-red-600 text-sm font-medium">{{ $message }}</p>@enderror
                 </div>
 
                 <div>

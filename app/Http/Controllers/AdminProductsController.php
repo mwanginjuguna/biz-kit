@@ -11,7 +11,7 @@ class AdminProductsController extends Controller
 {
     public function products(): View
     {
-        $products = Product::all();
+        $products = Product::query()->latest()->get();
         $users = User::all();
 
         return view('admin.products.index', [
