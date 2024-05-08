@@ -16,4 +16,9 @@ class ActionsController extends Controller
 
         return view('dashboard');
     }
+
+    public function cart(): View
+    {
+        return view('pages.cart');
+    }
 }

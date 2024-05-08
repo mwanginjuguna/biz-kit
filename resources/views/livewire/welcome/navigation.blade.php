@@ -31,6 +31,9 @@
 
             <div class="flex flex-row gap-x-4 items-center">
                 <x-utils.dark-mode-toggle />
+
+                <x-utils.cart-icon />
+
                 <div class="hidden sm:block">
                     @auth()
                         <x-secondary-link href="{{ route('dashboard') }}" class="text-sm">Dashboard</x-secondary-link>

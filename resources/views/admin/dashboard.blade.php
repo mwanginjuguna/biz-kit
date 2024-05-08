@@ -1,6 +1,10 @@
 <?php
 ?>
 <x-app-layout>
+    <x-slot:title>
+        Admin Dashboard
+    </x-slot:title>
+
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-slate-300 leading-tight">
             {{ __('Admin Dashboard') }}
@@ -11,12 +15,12 @@
         <div class="overflow-hidden shadow-sm sm:rounded-lg">
             <div class="container mx-auto mt-6 lg:mt-10 px-4">
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4 lg:gap-8">
-                    <div class="p-3 bg-gradient-to-tr from-orange-500 to-violet-500 text-gray-50 rounded-lg">
+                    <div class="p-3 bg-gradient-to-br from-orange-300 to-orange-500 dark:from-orange-700 dark:to-orange-900 text-gray-50 rounded-lg">
                         <p class="w-fit text-sm text-black font-semibold">
-                            Subscribers
+                            Products
                         </p>
                         <p class="mt-3 text-center text-3xl md:text-5xl font-bold">
-                            {{ 'N/A' }}
+                            {{ $products->count() }}
                         </p>
                     </div>
 

@@ -13,6 +13,8 @@ Route::get('/products', [ProductController::class, 'index'])->name('products');
 Route::get('/blog', [PostController::class, 'index'])->name('blog');
 Route::view('/contact-me', 'welcome')->name('contact-me');
 
+Route::get('/cart', [ActionsController::class, 'cart'])->name('cart');
+
 // auth routes
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [ActionsController::class, 'dashboard'])->name('dashboard');
