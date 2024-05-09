@@ -6,14 +6,10 @@ function getCart() {
     return localStorage.getItem('cart');
 }
 
-function setCart() {
-    localStorage.setItem('cart', JSON.stringify(cart));
-}
-
 let localCart = JSON.parse(getCart());
 let cartItems = localCart ?? [];
 
-function addToCart(productId) {
+function addToCart(productId, quantity=1) {
 
     // Check if the productId already exists in the cart by finding its index using findIndex.
     const existingCartItemIndex = cartItems.findIndex(item => item.product_id === productId);
@@ -32,8 +28,10 @@ function addToCart(productId) {
     }
     // set local cart
     localStorage.setItem('cart', JSON.stringify(cartItems));
-    flash('Added Successfull.', `You have added one item into cart.`, 'success')
+    //flash('Added Successfull.', `You have added one item into cart.`, 'success')
 
 }
 
-initializeCart();
+if (localCart ==null) {
+    initializeCart();
+}
