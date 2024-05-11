@@ -26,6 +26,8 @@ class CartView extends Component
         } else {
             Arr::add($this->cartItems, $product->name, $item);
         }
+
+        $this->updateCart();
     }
 
     public function removeFromCart(Product $product, int $quantity = 1): void
@@ -37,12 +39,14 @@ class CartView extends Component
         } else {
             unset($this->cartItems[$product->name]);
         }
+
+        $this->updateCart();
     }
 
     public function updateCart()
     {
         session()->put('cart', collect(Arr::map($this->cartItems, fn($item) => [
-                'product_id' => $item['product']['id'],
+                'product' => $item['product'],
                 'user_id' => Auth::user()->id ?? null,
                 'quantity' => $item['quantity'],
                 'subtotal' => $item['product']['price'] * $item['quantity']
@@ -52,6 +56,8 @@ class CartView extends Component
     public function render()
     {
         // $this->js('initializeCart()');
-        return view('livewire.cart-view');
+        return view('livewire.cart-view', [
+            "topProducts" => Product::query()->latest()->limit(5)->get()
+        ]);
     }
 }
