@@ -15,6 +15,8 @@ class CartActions extends Component
 
     public int $cartItemsCount = 0;
 
+    public float|int $cartTotal = 0.00;
+
     public function mount()
     {
         $this->cart = session()->get('cart', new Collection);
@@ -23,14 +25,25 @@ class CartActions extends Component
     #[On('add-to-cart')]
     public function addToCart(Product $product, int $quantity = 1)
     {
-        $this->cart->put(
-            $product->name, [
-                'product' => $product->only(['id', 'name', 'price']),
-                'quantity' => $quantity,
-                'user_id' => Auth::user()->id ?? null,
-                'subtotal' => $product->price * $quantity
-            ]
-        );
+        if (!is_null($this->cart->get($product->name, null))) {
+            $item = $this->cart->get($product->name);
+            $item['quantity'] += $quantity;
+            $item['subtotal'] = $item['product']['price'] * $item['quantity'];
+            $item['image'] = $product->image;
+            $this->cart->put($product->name, $item);
+        } else {
+            $this->cart->put(
+                $product->name, [
+                    'product' => $product->only(['id', 'name', 'price']),
+                    'quantity' => $quantity,
+                    'image' => $product->image,
+                    'user_id' => Auth::user()->id ?? null,
+                    'subtotal' => $product->price * $quantity
+                ]
+            );
+
+//            dd($this->cart);
+        }
 
         $this->updateCart();
     }
@@ -40,8 +53,8 @@ class CartActions extends Component
     {
         $item = $this->cart->get($product->name);
 
-        if ($item->quantity > $quantity) {
-            $item->quantity -= $quantity;
+        if ($item['quantity'] > $quantity) {
+            $item['quantity'] -= $quantity;
             $this->cart->put($product->name, $item);
         } else {
             $this->cart->forget($product->name);
@@ -52,6 +65,13 @@ class CartActions extends Component
 
     private function updateCart()
     {
+        $this->cart->forget('total');
+
+        $this->cartTotal = $this->cart->map(fn($item) => $item['subtotal'])->sum();
+
+//        $this->cart->forget('total');
+        session()->put('cart-total', $this->cartTotal);
+
         session()->put('cart', $this->cart);
     }
 

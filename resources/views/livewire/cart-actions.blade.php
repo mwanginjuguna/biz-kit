@@ -1,3 +1,3 @@
 <div>
-    {{-- In work, do what you enjoy. --}}
+    <x-utils.cart-icon :items="$cartItemsCount" />
 </div>
