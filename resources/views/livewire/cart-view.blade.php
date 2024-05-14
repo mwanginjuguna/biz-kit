@@ -71,11 +71,15 @@
                             </dl>
                         </div>
 
-                        <a href="#" class="flex w-full items-center justify-center rounded-lg bg-orange-500 px-5 py-2.5 text-sm font-medium text-white hover:bg-orange-700">Proceed to Checkout</a>
+                        <button
+                            wire:click="checkout"
+                            class="flex w-full items-center justify-center rounded-lg bg-orange-500 px-5 py-2.5 text-sm font-medium text-white hover:bg-orange-700">
+                            Proceed to Checkout
+                        </button>
 
                         <div class="flex items-center justify-center gap-2">
                             <span class="text-sm font-normal text-gray-500 dark:text-gray-400"> or </span>
-                            <a href="#" title="" class="inline-flex items-center gap-2 text-sm font-medium text-blue-500 underline hover:no-underline dark:text-blue-600">
+                            <a href="{{ route('products') }}" title="" class="inline-flex items-center gap-2 text-sm font-medium text-blue-500 underline hover:no-underline dark:text-blue-600">
                                 Continue Shopping
                                 <svg class="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4" />
@@ -87,28 +91,6 @@
             </div>
         </div>
 
-        <div class="hidden md:mt-8 md:block px-4">
-            <h3 class="text-2xl font-semibold text-gray-900 dark:text-white">People also bought</h3>
-            <div class="mt-6 grid md:grid-cols-3 lg:grid-cols-5 gap-4 sm:mt-8 text-xs">
-                @foreach($topProducts as $tp)
-                    <div class="space-y-6 overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm dark:border-gray-700 dark:bg-gray-800">
-                        <a href="{{ route('products.show', $tp->slug) }}" class="overflow-hidden rounded">
-                            <img class="mx-auto h-[185px] w-[185px]" src="/storage/{{ $tp->image }}" alt="imac image" />
-                        </a>
-                        <div class="px-2">
-                            <a href="{{ route('products.show', $tp->slug) }}" class="md:text-sm font-semibold leading-tight text-gray-900 hover:underline dark:text-white hover:text-orange-500 dark:hover:text-orange-500">{{ $tp->name }}</a>
-                            <p class="mt-2 font-normal text-gray-500 dark:text-gray-400">{{ \Illuminate\Support\Str::words($tp->description, 15) }}</p>
-                        </div>
-                        <div class="px-2">
-                            <p class="font-bold text-gray-900 dark:text-white">
-                                <span class="line-through"> &dollar; {{ number_format(($tp->price * 0.75), 2) }} </span>
-                            </p>
-                            <p class="text-sm font-bold leading-tight text-red-600 dark:text-red-500">&dollar; {{ $tp->price }}</p>
-                        </div>
-                    </div>
-                @endforeach
-
-            </div>
-        </div>
+        <x-parts.similar-products :products="$topProducts" />
     </section>
 </div>

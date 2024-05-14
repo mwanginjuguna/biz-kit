@@ -14,13 +14,24 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('shipping_address_id')->nullable()->constrained()->nullOnDelete();
+            $table->string('order_number')->unique();
             $table->string('customer_name')->nullable();
             $table->string('customer_email')->nullable();
             $table->string('customer_phone')->nullable();
             $table->text('address')->nullable();
-            $table->decimal('total', 10, 2);
+            $table->foreignId('discount_id')->nullable()->constrained()->nullOnDelete();
+            $table->decimal('tax', 10, 2)->nullable();
+            $table->decimal('shipping', 10, 2)->nullable();
+            $table->string('payment_gateway')->nullable();
+            $table->string('payment_id')->nullable();
+            $table->text('notes')->nullable();
+            $table->decimal('subtotal', 10, 2);
+            $table->decimal('total', 10, 2)->nullable();
             $table->boolean('is_paid')->default(false);
             $table->string('status')->default('pending');
+            $table->string('tracking_id')->nullable(); // added after order is paid.
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -43,7 +43,8 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         return view('pages.products.show', [
-            'product' => $product
+            'product' => $product,
+            'similarProducts' => Product::query()->where('category', '=', $product->category)->limit(5)->latest()->get()
         ]);
     }
 

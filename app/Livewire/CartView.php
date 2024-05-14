@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Discount;
+use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
@@ -41,7 +42,7 @@ class CartView extends Component
     public function addToCart(Product $product, int $quantity = 1): void
     {
         $this->dispatch('add-to-cart', $product, $quantity);
-        dd('dispatched');
+        $this->updateCart();
     }
 
     public function removeFromCart(Product $product, int $quantity = 1): void
@@ -61,6 +62,8 @@ class CartView extends Component
         $this->cart = session()->get('cart', new Collection);
 
         $this->cartTotal = session()->get('cart-total', 0.01);
+
+        $this->redirectRoute('cart');
     }
 
     public function clearCart()
@@ -69,6 +72,11 @@ class CartView extends Component
         session()->forget('cart-total');
 
         $this->updateCart();
+    }
+
+    public function checkout()
+    {
+        $this->redirectRoute('checkout');
     }
 
     public function mount()

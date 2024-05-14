@@ -3,6 +3,7 @@
 use App\Http\Controllers\ActionsController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminProductsController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
@@ -22,6 +23,11 @@ Route::middleware('auth')->group(function () {
     // products
     Route::get('/products/add', [ProductController::class, 'create'])->name('products.add');
     Route::post('/products/add', [ProductController::class, 'store'])->name('products.store');
+
+    // checkout & orders
+    Route::get('/checkout', [ActionsController::class, 'checkout'])->name('checkout');
+    Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+    Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
 });
 
 // admin Routes

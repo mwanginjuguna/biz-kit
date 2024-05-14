@@ -65,11 +65,8 @@ class CartActions extends Component
 
     private function updateCart()
     {
-        $this->cart->forget('total');
-
         $this->cartTotal = $this->cart->map(fn($item) => $item['subtotal'])->sum();
 
-//        $this->cart->forget('total');
         session()->put('cart-total', $this->cartTotal);
 
         session()->put('cart', $this->cart);

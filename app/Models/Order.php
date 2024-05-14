@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Order extends Model
@@ -19,7 +20,11 @@ class Order extends Model
         'customer_name',
         'customer_email',
         'customer_phone',
+        'order_number',
         'address',
+        'discount_id',
+        'shipping_address_id',
+        'subtotal',
         'total',
         'status',
         'is_paid'
@@ -30,6 +35,7 @@ class Order extends Model
      */
     protected $casts = [
         'total' => 'decimal:2',
+        'subtotal' => 'decimal:2',
         'is_paid' => 'boolean'
     ];
 
@@ -39,6 +45,11 @@ class Order extends Model
     public function items(): HasMany
     {
         return $this->hasMany(OrderItem::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 
     /**

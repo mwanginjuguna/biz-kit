@@ -37,9 +37,9 @@
         <!--price-->
         <div>
             <p class="text-xs font-bold text-gray-900 dark:text-white">
-                <span class="line-through"> $399,99 </span>
+                <span class="line-through"> $ {{ number_format(($product->price * 1.29), 2)  }} </span>
             </p>
-            <p class="text-lg font-bold leading-tight text-red-600 dark:text-red-500">$299</p>
+            <p class="text-lg font-bold leading-tight text-red-600 dark:text-red-500">$ {{ $product->price }}</p>
         </div>
 
         <!--actions-->
