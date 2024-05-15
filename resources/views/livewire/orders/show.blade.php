@@ -1,57 +1,57 @@
-<div>
-    <div class="md:mt-5 mt-2 px-3">
+<div class="text-slate-800 dark:text-slate-200">
+    <div class="ymt-5 px-3">
         <h3 class="text-center font-extrabold text-3xl">Order Summary: ({{ $order->order_number }})</h3>
     </div>
 
-    <div class="grid grid-cols-2 px-5 py-4 mt-3">
-        <div class="text-sm text-slate-600">
-            <h4 class="text-base font-bold text-slate-800 pl-6 pb-1.5">Order Balances</h4>
+    <div class="grid md:grid-cols-2 gap-6 items-center px-5 py-4 mt-3 text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 rounded-sm">
+        <div class="text-sm">
+            <h4 class="text-base font-bold pb-1.5">Order Balances</h4>
             <p>Order Price: <span class="font-semibold">$ {{ $order->subtotal }}</span></p>
             <p>Discount: <span class="font-semibold">$ {{ $order->discount }}</span></p>
             <p>Tax: <span class="font-semibold">$ {{ $order->tax }}</span></p>
             <p>Shipping: <span class="font-semibold">$ {{ $order->shipping_fee }}</span></p>
-            <p class="pt-1.5 text-base text-amber-900 underline decoration-dashed underline-offset-4">Total: <span class="font-semibold">$ {{ $order->total }}</span></p>
+            <p class="pt-1.5 text-base text-amber-900 dark:text-amber-500 underline decoration-dashed underline-offset-4">Total: <span class="font-medium">$ {{ $order->total }}</span></p>
         </div>
 
-        <div class="text-sm text-slate-700">
-            <h4 class="text-base font-bold text-slate-800 pl-6 pb-1.5">Order Processing</h4>
+        <div class="text-sm">
+            <h4 class="text-base font-bold pb-1.5">Order Processing</h4>
             <p>
                 Order Status:
                 <span class="font-semibold">{{ $order->status }}</span>
                 @if($order->is_paid)
-                    <span class="pl-2 text-green-500 font-medium">Paid</span>
+                    <span class="pl-2 text-green-500 dark:text-green-400">Paid</span>
                 @else
-                    <span class="pl-2 text-red-500 text-lg font-semibold">Not Paid</span>
+                    <span class="pl-2 text-red-500 dark:text-red-400">Not Paid</span>
                 @endif
             </p>
             <p>Payment: <span class="font-semibold">{{ $order->payment_gateway }}</span></p>
             <p>Payment ID: <span class="font-semibold">{{ $order->payment_id }}</span></p>
         </div>
 
-        <div class="mt-5 text-sm text-slate-600 col-span-2">
-            <h4 class="text-base font-bold">Order Notes:</h4>
+        <div class="mt-5 text-sm md:col-span-2">
+            <h4 class="font-medium">Order Notes:</h4>
             <p class="italic">{{$order->notes}}</p>
         </div>
     </div>
 
-    <div class="bg-white rounded-lg shadow-md mt-4 md:mt-6 md:px-5 px-3 py-4">
+    <div class="bg-white dark:bg-slate-800 rounded-lg shadow-md my-4 md:my-6 md:px-5 px-3 py-4">
 
-        <div class="text-slate-600 font-bold text-lg">
+        <div class="text-slate-600 dark:text-slate-400 font-bold text-lg">
             <h3>Order Items</h3>
         </div>
         @foreach($orderItems->where('order_id', '=', $order->id) as $item)
-            <div class="mt-3 p-3 md:px-5 bg-amber-500 rounded-lg shadow-sm">
+            <div class="mt-3 p-3 md:px-5 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 text-sm rounded-xl border border-slate-200 hover:border-slate-300  dark:border-slate-700 dark:hover:border-slate-600">
                 <p>
-                    <span class="font-semibold text-sm pr-1">Items: {{ $item->quantity }}</span>
-                    <span class="text-sm block">{{ $item->product->name }}</span></p>
-                <p class="text-sm">Amount: {{ $item->product->currency ?? '$' }} <span class="font-semibold text-base pl-1">{{ $item->product->price }}</span></p>
+                    <span class="pr-1">Items: {{ $item->quantity }}</span>
+                    <span class="block">{{ $item->product->name }}</span></p>
+                <p class="">Amount: {{ $item->product->currency ?? '$' }} <span class="font-medium text-base pl-1">{{ $item->product->price }}</span></p>
             </div>
         @endforeach
     </div>
 
     <!--payment buttons-->
     @if(!$order->is_paid)
-        <div class="mt-12 grid grid-cols-3 gap-x-4">
+        <div class="my-12 grid md:grid-cols-3 gap-4">
             <div>
                 <!--Pay with paypal-->
                 <p class="font-semibold">PayPal Buttons Here</p>
