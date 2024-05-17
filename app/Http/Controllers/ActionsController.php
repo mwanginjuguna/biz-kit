@@ -28,16 +28,18 @@ class ActionsController extends Controller
         return view('pages.cart');
     }
 
-    public function checkout(): View
+    public function checkout(Order $order = null): View
     {
         $cartItems = session()->get('cart', new Collection);
         $cartTotal = session()->get('cart-total');
 
         if ($cartItems->isEmpty()) {
-            $order = Order::query()
-                ->where('user_id', '=', Auth::id())
-                ->where('is_paid', '=', false)
-                ->first();
+            if (!$order->exists) {
+                $order = Order::query()
+                    ->where('user_id', '=', Auth::id())
+                    ->where('is_paid', '=', false)
+                    ->first();
+            }
         } else {
             // generate a random order_number value
             $orNo = rand(0001, 99999) . '_' . strtoupper(Str::random('6'));

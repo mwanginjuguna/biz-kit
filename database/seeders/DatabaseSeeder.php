@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Category;
+use App\Models\Discount;
 use App\Models\Post;
 use App\Models\Product;
 use App\Models\Tag;
@@ -36,5 +37,16 @@ class DatabaseSeeder extends Seeder
 
             Product::factory(15)->create();
         }
+
+        Discount::updateOrCreate(
+            [
+                'code' => 'NEWCOMER10'
+            ],
+            [
+                'code' => 'NEWCOMER10',
+                'rate' => 0.10,
+                'expires_after' => 1000,
+            ]
+        );
     }
 }

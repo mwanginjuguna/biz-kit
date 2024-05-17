@@ -4,6 +4,7 @@ use App\Http\Controllers\ActionsController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminProductsController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PaymentsController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
@@ -27,6 +28,7 @@ Route::middleware('auth')->group(function () {
     // checkout & orders
     Route::get('/checkout', [ActionsController::class, 'checkout'])->name('checkout');
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+    Route::get('/orders/checkout/{order}', [ActionsController::class, 'checkout'])->name('orders.checkout');
     Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
 });
 
@@ -54,5 +56,11 @@ Route::get('/products/{product:slug}', [ProductController::class, 'show'])->name
 Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
+
+Route::controller(PaymentsController::class)->group(function () {
+    Route::get('/orders/order/make-payment/{order}', 'pay')->name('make-payment');
+    Route::get('/orders/order/cancel-payment/{order}', 'cancel')->name('payment.cance');
+    Route::get('/orders/order/payment-success/{order}', 'success')->name('payment.success');
+})->middleware('auth');
 
 require __DIR__.'/auth.php';
