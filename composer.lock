@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e5615f70b235f81b2e94118f32da8d73",
+    "content-hash": "f783d9a445275c964a9bd85652eb82bb",
     "packages": [
         {
             "name": "brick/math",
@@ -1049,6 +1049,73 @@
                 }
             ],
             "time": "2023-12-03T19:50:20+00:00"
+        },
+        {
+            "name": "iankumu/mpesa",
+            "version": "1.3.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Iankumu/mpesa.git",
+                "reference": "cd9dd65c667faca8d436c8a1eafe0ae089b4fd22"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Iankumu/mpesa/zipball/cd9dd65c667faca8d436c8a1eafe0ae089b4fd22",
+                "reference": "cd9dd65c667faca8d436c8a1eafe0ae089b4fd22",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^7.5",
+                "illuminate/http": "^8.0 | ^9.0 | ^10.0 | ^11.0",
+                "illuminate/support": "^8.0 | ^9.0 | ^10.0 | ^11.0",
+                "php": "^8.0 | ^8.1 | ^8.2"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^6.0 | ^7.0 | ^8.0 |^9.0",
+                "pestphp/pest": "^1.0 |^2.0",
+                "phpunit/phpunit": "^9.0 | ^10.0 | ^11.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Iankumu\\Mpesa\\MpesaServiceProvider"
+                    ],
+                    "aliases": {
+                        "Mpesa": "Iankumu\\Mpesa\\Facades\\Mpesa"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Iankumu\\Mpesa\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ian Kumu",
+                    "email": "ian@iankumu.com",
+                    "homepage": "https://www.iankumu.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A package that helps integrate the Mpesa APIs to your Laravel Project",
+            "homepage": "https://github.com/Iankumu/mpesa",
+            "keywords": [
+                "laravel",
+                "laravel mpesa",
+                "laravel-mpesa",
+                "mpesa"
+            ],
+            "support": {
+                "issues": "https://github.com/Iankumu/mpesa/issues",
+                "source": "https://github.com/Iankumu/mpesa/tree/1.3.6"
+            },
+            "time": "2024-05-17T13:26:25+00:00"
         },
         {
             "name": "laravel/breeze",

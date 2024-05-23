@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Mpesa\C2BController;
+use App\Http\Controllers\Mpesa\StkPushController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PaymentsController;
@@ -16,3 +18,9 @@ Route::group(['prefix'=>'paypal'], function () {
     Route::post('/order/{order}/capture', [PaymentsController::class, 'capture'])
         ->name('paypal.capture');
 });
+
+Route::post('/cb/confirm/payment', [StkPushController::class, 'stkConfirm'])->name('stkPush.confirm');
+
+// c2b routes
+Route::post('/c-2-b/confirm-url', [C2BController::class, 'confirm'])->name('c2b.confirm');
+Route::post('/c-2-b/validate-url', [C2BController::class, 'validation'])->name('c2b.validation');

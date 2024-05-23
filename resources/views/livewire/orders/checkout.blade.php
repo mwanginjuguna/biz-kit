@@ -163,7 +163,7 @@
                         </div>
                     </div>
 
-                    <div>
+                    <div id="apply-discount">
                         <label for="voucher" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"> Enter a gift card, voucher or promotional code </label>
                         <div class="flex max-w-md items-center gap-4">
                             <input type="text" id="voucher"
@@ -212,6 +212,10 @@
 
                     <div class="space-y-3">
                         <livewire:payments.paypal-buttons :order="$order" />
+
+                        <button type="button" class="flex items-center justify-center rounded-lg bg-green-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-green-500 focus:outline-none dark:bg-green-500 dark:hover:bg-green-400">
+                            Lipa na Mpesa
+                        </button>
                     </div>
                 </div>
             </div>
