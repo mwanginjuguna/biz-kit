@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('mpesa_stks', function (Blueprint $table) {
             $table->id();
             $table->mediumText('result_desc')->nullable();
+            $table->foreignId('order_id')->nullable()->constrained()->nullOnDelete();
             $table->mediumText('customer_message')->nullable();
             $table->string('result_code')->nullable();
             $table->string('merchant_request_id')->nullable();

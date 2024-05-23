@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('transaction_type')->nullable();
             $table->string('transaction_id')->nullable();
+            $table->foreignId('order_id')->nullable()->constrained()->nullOnDelete();
             $table->string('transaction_time')->nullable();
             $table->string('amount')->nullable();
             $table->string('business_shortcode')->nullable();
