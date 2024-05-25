@@ -12,7 +12,7 @@ use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome')->name('home');
-Route::view('/services', 'welcome')->name('services');
+Route::view('/services', 'pages.about')->name('services');
 Route::get('/products', [ProductController::class, 'index'])->name('products');
 Route::get('/blog', [PostController::class, 'index'])->name('blog');
 Route::view('/contact-me', 'pages.contact')->name('contact-me');

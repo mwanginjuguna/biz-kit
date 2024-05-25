@@ -6,10 +6,12 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('home') }}" wire:navigate>
+                    <a href="{{ route('home') }}"
+                       class="flex flex-row items-center"
+                       wire:navigate>
                         <x-application-logo class="block h-9 w-auto object-cover object-center text-slate-800 dark:text-slate-200" />
+                        <span class="pl-1 font-medium text-orange-600 dark:text-orange-500 text-xs lg:text-sm">{{ config('app.name') }}</span>
                     </a>
-                    <span class="pl-1 font-bold text-red-600 dark:text-red-500 text-xs lg:text-sm">{{ config('app.name') }}</span>
                 </div>
 
                 <!-- Navigation Links -->
