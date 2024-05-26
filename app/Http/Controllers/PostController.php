@@ -18,9 +18,9 @@ class PostController extends Controller
      */
     public function index(): View
     {
-        $posts = Post::with(['category', 'user', 'tags', 'comments'])
-            ->where('is_published')
-            ->get();
+        $posts = Post::query()
+            ->latest()
+            ->simplePaginate(15);
 
         return view('pages.blog', [
             'posts' => $posts

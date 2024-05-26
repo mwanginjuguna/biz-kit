@@ -25,7 +25,8 @@ class PostFactory extends Factory
             'content' => $this->faker->paragraphs(6, true),
             'category_id' => random_int(1, 6),
             'tag_id' => random_int(1,6),
-            'user_id' => 1
+            'user_id' => 1,
+            'is_published' => true
         ];
     }
 }

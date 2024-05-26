@@ -37,7 +37,7 @@ return new class extends Migration
             $table->foreignId('tag_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
             $table->text('featured_image')->nullable();
-            $table->boolean('is_published')->default(true);
+            $table->boolean('is_published')->default(false);
             $table->unsignedBigInteger('views')->default(0);
             $table->softDeletes('deleted_at');
             $table->timestamps();
