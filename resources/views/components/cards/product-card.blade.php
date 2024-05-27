@@ -37,9 +37,9 @@
         <!--price-->
         <div>
             <p class="text-xs font-bold text-gray-900 dark:text-white">
-                <span class="line-through"> $ {{ number_format(($product->price * 1.29), 2)  }} </span>
+                <span class="line-through"> {{ config('app.currency_symbol') }} {{ number_format(($product->price * 1.29), 2)  }} </span>
             </p>
-            <p class="text-lg font-bold leading-tight text-red-600 dark:text-red-500">$ {{ $product->price }}</p>
+            <p class="text-lg font-bold leading-tight text-red-600 dark:text-red-500">{{ config('app.currency_symbol') .' '. $product->price }}</p>
         </div>
 
         <!--actions-->

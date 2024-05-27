@@ -39,7 +39,7 @@
                 </div>
             @endif
             <div class="text-end md:order-4 md:w-32">
-                <p class="text-base font-bold text-gray-900 dark:text-white">${{ $item->subtotal }}</p>
+                <p class="text-base font-bold text-gray-900 dark:text-white">{{ config('app.currency_symbol'). ' ' .$item->subtotal }}</p>
             </div>
         </div>
 

@@ -18,7 +18,7 @@ class StkPush
         $this->failed = false;
     }
 
-    public function init(int $phoneNumber, int $amount, string $accNumber)
+    public function init(int $phoneNumber, int $orderId, int $amount, string $accNumber)
     {
         /** @var Response */
         $response = Mpesa::stkpush(phonenumber: $phoneNumber, amount: $amount, account_number: $accNumber);
@@ -31,6 +31,8 @@ class StkPush
             'response_code' => $result['ResponseCode'],
             'response_desc' => $result['ResponseDescription'],
             'customer_message' => $result['CustomerMessage'],
+            'phone_number' => $phoneNumber,
+            'order_id' => $orderId,
         ]);
 
         return $result;

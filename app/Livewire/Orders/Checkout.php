@@ -6,6 +6,7 @@ use App\Livewire\Forms\CreateAddressForm;
 use App\Models\Discount;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Mpesa\StkPush;
 use Livewire\Component;
 
 class Checkout extends Component
@@ -13,9 +14,13 @@ class Checkout extends Component
     public CreateAddressForm $form;
     public Order $order;
 
+    public string $mpesaNumber = '';
+
     public string $discountCode = '';
     private object $discount;
     public bool $discountValid = false;
+
+    public mixed $results = null;
 
     public function applyDiscount()
     {
@@ -66,6 +71,16 @@ class Checkout extends Component
 
         // redirect to update order details
         $this->redirectRoute('orders.checkout', [$this->order->id]);
+    }
+
+    public function lipaNaMpesa()
+    {
+        $this->results = (new StkPush())->init(
+            phoneNumber: $this->mpesaNumber,
+            orderId: $this->order->id,
+            amount: $this->order->total,
+            accNumber: config('mpesa.paybill_account')
+        );
     }
 
     public function render()

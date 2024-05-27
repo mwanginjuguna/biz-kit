@@ -119,4 +119,9 @@ return [
     'b2b_result_url' => env('MPESA_B2B_RESULT_URL'),
 
     'b2b_timeout_url' => env('MPESA_B2B_TIMEOUT_URL'),
+
+    /**
+     * Paybill account number
+     */
+    'paybill_account' => env('MPESA_PAYBILL_ACCOUNT_NUMBER'),
 ];

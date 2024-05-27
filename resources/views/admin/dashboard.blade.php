@@ -29,7 +29,7 @@
                             Contacts
                         </p>
                         <p class="mt-3 text-center text-3xl md:text-5xl font-bold">
-                            {{ 'N/A' }}
+                            {{ $contactMessages->count() }}
                         </p>
                     </div>
 
@@ -44,10 +44,10 @@
 
                     <div class="p-3 bg-gradient-to-b from-orange-500 to-gray-600 text-gray-50 rounded-lg">
                         <p class="w-fit text-sm text-black font-semibold">
-                            All Posts
+                            All Orders
                         </p>
                         <p class="mt-3 text-center text-3xl md:text-5xl font-bold">
-                            {{ $posts->count() }}
+                            {{ $orders->count() }}
                         </p>
                     </div>
                 </div>

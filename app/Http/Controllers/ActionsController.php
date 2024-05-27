@@ -34,7 +34,7 @@ class ActionsController extends Controller
         $cartTotal = session()->get('cart-total');
 
         if ($cartItems->isEmpty()) {
-            if (!$order->exists) {
+            if (is_null($order)) {
                 $order = Order::query()
                     ->where('user_id', '=', Auth::id())
                     ->where('is_paid', '=', false)

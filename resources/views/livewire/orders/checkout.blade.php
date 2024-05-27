@@ -1,3 +1,6 @@
+@php
+    // dd($order->items->first()->product)
+@endphp
 <div class="px-4">
     <h4 class="w-max px-2 py-1 bg-slate-200 dark:bg-slate-700 border dark:border-slate-600 rounded-lg text-sm lg:text-lg font-medium text-amber-600 dark:text-amber-400">Thank You! It's ready to ship.</h4>
     <h1 class="my-3 py-2 text-xl text-2xl font-extrabold text-slate-800 dark:text-slate-300">Checkout</h1>
@@ -119,6 +122,12 @@
                     </div>
 
                     <div class="space-y-4">
+                        @foreach($order->items as $item)
+                            <x-cards.order-item :item="$item" />
+                        @endforeach
+                    </div>
+
+                    <div class="space-y-4">
                         <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Delivery Methods</h3>
 
                         <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
@@ -211,14 +220,59 @@
                     </div>
 
                     <div class="space-y-3">
-                        <livewire:payments.paypal-buttons :order="$order" />
+                        <button type="button"
+                                @click="$dispatch('open-modal', 'lipa-na-mpesa')"
+                                class="flex gap-x-6 items-center justify-center rounded-lg bg-green-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-green-500 focus:outline-none dark:bg-green-500 dark:hover:bg-green-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0 0 48 48">
+                                <path fill="#aed580" d="M31.003,7.001l-0.001-5.5c0-0.828,0.672-1.5,1.5-1.5	c0.828,0,1.5,0.672,1.5,1.5v5.5H31.003z"></path><path fill="#aed580" d="M14.964,47.999h18.073c0.533,0,0.965-0.432,0.965-0.965V4.964c0-0.533-0.432-0.965-0.965-0.965	H14.964c-0.533,0-0.965,0.432-0.965,0.965v42.07C13.999,47.567,14.431,47.999,14.964,47.999z"></path><path fill="#fff" fill-rule="evenodd" d="M17.739,29.001h12.524c0.962,0,1.741-0.78,1.741-1.741V10.743	c0-0.962-0.78-1.741-1.741-1.741H17.739c-0.962,0-1.741,0.78-1.741,1.741V27.26C15.997,28.222,16.777,29.001,17.739,29.001z" clip-rule="evenodd"></path><path fill="#9b2310" fill-rule="evenodd" d="M12.001,22.001	c3.643-0.7,5.865-2.448,7-5c1.135,2.552,3.357,4.3,7,5H12.001z" clip-rule="evenodd"></path><path fill="#e60023" fill-rule="evenodd" d="M12.001,22.001	c4.273,0.867,6.476,1,11,1c5.076,0,11.712-1.939,14-6l-9-4C24.039,18.139,21.863,22.001,12.001,22.001z" clip-rule="evenodd"></path>
+                            </svg>
 
-                        <button type="button" class="flex items-center justify-center rounded-lg bg-green-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-green-500 focus:outline-none dark:bg-green-500 dark:hover:bg-green-400">
                             Lipa na Mpesa
                         </button>
+
+                        <livewire:payments.paypal-buttons :order="$order" />
                     </div>
                 </div>
             </div>
         </form>
     </section>
+
+    <x-modal name="lipa-na-mpesa">
+        <div class="px-4 py-10 bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200">
+            <h3 class="text-lg py-2 font-bold">Lipa Na Mpesa</h3>
+
+            <p class="py-3 text-sm">We will send you STK push notification to your phone. Check, confirm, and Complete Payment by entering your MPESA PIN on your Phone.</p>
+
+            <form class="max-w-sm" wire:submit="lipaNaMpesa">
+                <div class="mb-5">
+                    <label for="mpesa-number" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Mpesa Number.</label>
+
+                    <input type="text" id="mpesa-number"
+                           name="mpesa-number"
+                           wire:model="mpesaNumber"
+                           placeholder="0720123456"
+                           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+                    @error('mpesaNumber')<p class="text-red-500 text-xs md:text-sm">{{ $message }}</p>@enderror
+                </div>
+                <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Pay Now!</button>
+            </form>
+
+            <div class="mt-3 py-4 flex flex-col bg-white border shadow-sm rounded-xl dark:bg-slate-900 dark:border-slate-700 dark:shadow-slate-700/70">
+                <div class="border-b rounded-t-xl py-3 px-4 md:py-4 md:px-5 dark:border-slate-700">
+                    <p class="mt-1 text-sm text-slate-600 dark:text-slate-400">
+                        Option 2: Pay with Paybill.
+                    </p>
+                </div>
+
+                <div class="bg-slate-100 border-b border-slate-200 text-sm text-slate-800 p-4 dark:bg-slate-800 dark:border-slate-700 dark:text-white">
+                    <p class="mt-1 py-2 text-sm text-slate-600 dark:text-slate-400">
+                        Go to Mpesa. Select Lipa na Mpesa. <span class="font-semibold">Then Paybill</span>
+                    </p>
+
+                    Enter Paybill Number: <span class="font-bold">{{ config('mpesa.shortcode') }}</span><br>
+                    Account Number: <span class="font-bold">{{ config('mpesa.paybill_account') }}</span><br>
+                </div>
+            </div>
+        </div>
+    </x-modal>
 </div>

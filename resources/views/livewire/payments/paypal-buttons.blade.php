@@ -1,5 +1,4 @@
 <div>
-    <p class="text-red-500 text-xs xl:text-sm">Complete payment.</p>
     <div class="py-6 rounded-lg flex flex-col space-x-3">
         <p class="w-fit px-6 mb-4 py-2 text-amber-500 text-sm font-bold rounded-md">
             Total Due: <span class="underline ml-4">{{ config('app.currency_symbol') }} {{ $amount }}</span>

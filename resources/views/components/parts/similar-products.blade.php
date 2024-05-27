@@ -14,9 +14,9 @@
                 </div>
                 <div class="px-2">
                     <p class="font-bold text-gray-900 dark:text-white">
-                        <span class="line-through"> &dollar; {{ number_format(($tp->price * 1.35), 2) }} </span>
+                        <span class="line-through"> {{ config('app.currency_symbol') }} {{ number_format(($tp->price * 1.35), 2) }} </span>
                     </p>
-                    <p class="text-sm font-bold leading-tight text-red-600 dark:text-red-500">&dollar; {{ $tp->price }}</p>
+                    <p class="text-sm font-bold leading-tight text-red-600 dark:text-red-500">{{ config('app.currency_symbol') .' '. $tp->price }}</p>
                 </div>
             </div>
         @endforeach

@@ -1,6 +1,6 @@
 @props(['product'])
 
-<div class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-orange-800 md:p-6">
+<div class="rounded-lg border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-600 dark:bg-slate-700 md:p-6">
     <div class="space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
         <a href="#" class="shrink-0 md:order-1">
             <img class="h-20 w-20" src="/storage/{{ $product['image'] ?? '' }}" alt="{{ $product['product']['name'] }} image" />
@@ -13,7 +13,7 @@
                         id="decrement-button"
                         data-input-counter-decrement="counter-input"
                         wire:click="removeFromCart({{ $product['product']['id'] }})"
-                        class="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600"
+                        class="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 focus:outline-none dark:border-gray-600 dark:bg-slate-800 dark:hover:bg-gray-900"
                         wire:refresh
                 >
                     <svg class="h-2.5 w-2.5 text-gray-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
@@ -24,7 +24,7 @@
                 <button type="button" id="increment-button"
                         data-input-counter-increment="counter-input"
                         wire:click="addToCart({{$product['product']['id']}})"
-                        class="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600"
+                        class="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 dark:border-gray-600 dark:bg-slate-800 dark:hover:bg-gray-900"
                         wire:refresh
                 >
                     <svg class="h-2.5 w-2.5 text-gray-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
@@ -33,7 +33,7 @@
                 </button>
             </div>
             <div class="text-end md:order-4 md:w-32">
-                <p class="text-base font-bold text-gray-900 dark:text-white">${{ $product['subtotal'] }}</p>
+                <p class="text-base font-bold text-gray-900 dark:text-white">{{ config('app.currency_symbol') }} {{ $product['subtotal'] }}</p>
             </div>
         </div>
 
