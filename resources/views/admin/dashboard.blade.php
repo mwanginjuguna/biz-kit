@@ -51,10 +51,13 @@
                         </p>
                     </div>
                 </div>
+
+                <livewire:charts.sales />
             </div>
 
             <div class="grid md:grid-cols-3 gap-6">
                 <div class="md:col-span-2 max-w-3xl mt-6 lg:mt-10 grid text-slate-900 dark:text-slate-100 gap-6">
+                    <!--latest-posts -->
                     <div class="mt-10 py-12 px-4 bg-slate-100 dark:bg-slate-800 rounded-lg">
                         <h2 class="py-2 font-bold text-3xl text-creator-primary ">
                             Latest Posts
@@ -80,4 +83,8 @@
 
         </div>
     </div>
+
+    @pushonce('scripts')
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    @endpushonce
 </x-app-layout>

@@ -22,7 +22,7 @@ return new class extends Migration
             $table->text('address')->nullable();
             $table->foreignId('discount_id')->nullable()->constrained()->nullOnDelete();
             $table->decimal('tax', 10, 2)->nullable();
-            $table->decimal('shipping', 10, 2)->nullable();
+            $table->decimal('shipping_fee', 10, 2)->nullable();
             $table->string('payment_gateway')->nullable();
             $table->string('payment_id')->nullable();
             $table->text('notes')->nullable();

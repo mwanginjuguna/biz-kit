@@ -32,11 +32,12 @@ class ProductFactory extends Factory
             'description' => $this->faker->sentences(4, true),
             'category' => Arr::random($productCategories),
             'brand' => Arr::random($productBrands),
-            'price' => $this->faker->randomFloat(2, 3, 200),
-            'stock_quantity' => $this->faker->randomNumber(),
+            'price' => $this->faker->randomFloat(2, 250, 3200),
+            'stock_quantity' => rand(0, 12),
             'return_policy' => Arr::random(['30 days', '3 days', '7 days', '14 days']),
             'shipped_from' => $this->faker->city(),
             'image' => Arr::random($productImages),
+            'views' => rand(0, 50)
         ];
     }
 }

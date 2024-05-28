@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use App\Models\Category;
 use App\Models\Discount;
+use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\Post;
 use App\Models\Product;
 use App\Models\Tag;
@@ -35,7 +37,16 @@ class DatabaseSeeder extends Seeder
             Tag::factory(10)->create();
             Post::factory(30)->create();
 
-            Product::factory(15)->create();
+            OrderItem::factory(4)
+                ->for(Order::factory(1)
+                    ->for(
+                        User::factory()
+                    ))
+                ->has(Product::factory(3))
+                ->create();
+
+            Product::factory(15)
+                ->create();
         }
 
         Discount::updateOrCreate(

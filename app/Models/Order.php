@@ -27,7 +27,8 @@ class Order extends Model
         'subtotal',
         'total',
         'status',
-        'is_paid'
+        'is_paid',
+        'tracking_id',
     ];
 
     /**
