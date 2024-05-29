@@ -19,7 +19,7 @@ class OrderFactory extends Factory
      */
     public function definition(): array
     {
-        $user = User::factory();
+        $user = User::factory()->create();
         return [
             'user_id' => $user,
             'order_number' => strtoupper(Str::random(11)),
@@ -34,7 +34,7 @@ class OrderFactory extends Factory
             'status' => function (array $attributes) {
                 return $attributes['is_paid'] ? Arr::random(['shipping', 'delivered']) : 'pending';
             },
-            'tracking_id' => function (array $attributes) {
+            'tracking_number' => function (array $attributes) {
                 return $attributes['is_paid'] ? Str::random(10) : null;
             }
         ];

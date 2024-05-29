@@ -30,7 +30,7 @@ return new class extends Migration
             $table->decimal('total', 10, 2)->nullable();
             $table->boolean('is_paid')->default(false);
             $table->string('status')->default('pending');
-            $table->string('tracking_id')->nullable(); // added after order is paid.
+            $table->string('tracking_number')->nullable(); // added after order is paid.
             $table->softDeletes();
             $table->timestamps();
         });

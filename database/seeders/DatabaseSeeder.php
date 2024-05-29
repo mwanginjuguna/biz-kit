@@ -21,9 +21,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
+        // dummy data for local testing
         if (config('app.env') == 'local') {
+            // admin user
             $admin = User::factory()->create([
                 'name' => 'Admin',
                 'email' => config('app.admin.email'),
@@ -32,32 +32,75 @@ class DatabaseSeeder extends Seeder
 
             $admin->role = 'A';
             $admin->save();
+            User::factory(10)->create();
 
-            Category::factory(10)->create();
+            \Laravel\Prompts\info('Admin and users seeded.');
+
+            \Laravel\Prompts\info('Creating Posts');
             Tag::factory(10)->create();
-            Post::factory(30)->create();
+            Category::factory()->has(Post::factory()->count(5))->count(15)->create();
+            \Laravel\Prompts\info('Posts seeded');
 
-            OrderItem::factory(4)
-                ->for(Order::factory(1)
-                    ->for(
-                        User::factory()
-                    ))
-                ->has(Product::factory(3))
-                ->create();
+            // initialize discount
+            $discount = Discount::updateOrCreate(
+                [
+                    'code' => 'NEWCOMER10'
+                ],
+                [
+                    'code' => 'NEWCOMER10',
+                    'rate' => 0.10,
+                    'expires_after' => 1000,
+                ]
+            );
+
+            \Laravel\Prompts\info("Discount seeded.");
+
+            $users = User::factory(10)->create();
+
+            $products = Product::factory()->count(30)->create();
+
+            \Laravel\Prompts\info("Users & order products seeded.");
+
+            for ($i__ = 1; $i__ <= 20; $i__++)
+            {
+                // order for a random user
+                $order = Order::factory()->create([
+                    'user_id' => $users->random()->id,
+                    'discount_id' => $discount->id
+                ]);
+
+                \Laravel\Prompts\info("Order {$i__} created.");
+
+                // let's generate random order items for this order
+                $itemCount = rand(2, 5);
+
+                for ($item = 1; $item < $itemCount; $item++)
+                {
+                    $product = $products->random();
+
+                    $q = random_int(1, 3); // quantity
+
+                    // we'll use products price to calculate the subtotal
+                    /** @var float $price */
+                    $price = $product->price;
+
+                    OrderItem::create([
+                        'order_id' => $order->id,
+                        'product_id' => $product->id,
+                        'quantity' => $q,
+                        'subtotal' => $price * $q
+                    ]);
+                }
+
+                $order->total -= (float)number_format((float)$order->subtotal * (float)$discount->rate, 2);
+                $order->save();
+
+            }
+
+            \Laravel\Prompts\info("Orders processed.");
 
             Product::factory(15)
                 ->create();
         }
-
-        Discount::updateOrCreate(
-            [
-                'code' => 'NEWCOMER10'
-            ],
-            [
-                'code' => 'NEWCOMER10',
-                'rate' => 0.10,
-                'expires_after' => 1000,
-            ]
-        );
     }
 }
