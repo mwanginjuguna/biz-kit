@@ -59,7 +59,7 @@ class Checkout extends Component
 
     public function updateOrder()
     {
-        $this->order->subtotal = $this->order->items()->get()->map(fn($item) => $item->subtotal)->sum();
+        $this->order->subtotal = $this->order->orderItems()->get()->map(fn($item) => $item->subtotal)->sum();
         $this->order->total = $this->order->subtotal;
 
         if ($this->order->discount_id > 0) {

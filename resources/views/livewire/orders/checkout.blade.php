@@ -122,7 +122,7 @@
                     </div>
 
                     <div class="space-y-4">
-                        @foreach($order->items as $item)
+                        @foreach($order->orderItems as $item)
                             <x-cards.order-item :item="$item" />
                         @endforeach
                     </div>

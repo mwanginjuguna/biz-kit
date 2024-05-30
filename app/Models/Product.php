@@ -48,7 +48,7 @@ class Product extends Model
     /**
      * features
      */
-    public function features(): HasMany
+    public function productFeatures(): HasMany
     {
         return $this->hasMany(ProductFeature::class);
     }

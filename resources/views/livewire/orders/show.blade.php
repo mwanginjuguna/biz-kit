@@ -40,7 +40,7 @@
             <div class="grid space-y-2.5 text-slate-600 dark:text-slate-400">
                 <h3 class="py-2 font-bold text-lg">Order Items</h3>
 
-                @foreach($order->items as $item)
+                @foreach($order->orderItems as $item)
                     <x-cards.order-item :item="$item" :isOrder="true" />
                 @endforeach
             </div>

@@ -8,10 +8,12 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Post;
 use App\Models\Product;
+use App\Models\ProductFeature;
 use App\Models\Tag;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
@@ -57,7 +59,13 @@ class DatabaseSeeder extends Seeder
 
             $users = User::factory(10)->create();
 
-            $products = Product::factory()->count(30)->create();
+            $products = Product::factory()
+                ->count(30)
+                ->has(
+                    ProductFeature::factory()
+                        ->count(3)
+                )
+                ->create();
 
             \Laravel\Prompts\info("Users & order products seeded.");
 
@@ -66,7 +74,12 @@ class DatabaseSeeder extends Seeder
                 // order for a random user
                 $order = Order::factory()->create([
                     'user_id' => $users->random()->id,
-                    'discount_id' => $discount->id
+                    'discount_id' => $discount->id,
+                    'created_at' => Arr::random([
+                        now()->subMonths(rand(2, 5))->addHours(rand(24,180)),
+                        now()->subYears(rand(2,3))->addMonths((rand(1,8)))->addHours(rand(14,80)),
+                        now()->subYear()->addMonths(rand(1,6))->subHours(rand(34,120))
+                    ])
                 ]);
 
                 \Laravel\Prompts\info("Order {$i__} created.");
@@ -100,6 +113,7 @@ class DatabaseSeeder extends Seeder
             \Laravel\Prompts\info("Orders processed.");
 
             Product::factory(15)
+                ->has(ProductFeature::factory()->count(3))
                 ->create();
         }
     }

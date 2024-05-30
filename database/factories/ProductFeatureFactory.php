@@ -17,7 +17,8 @@ class ProductFeatureFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'title' => $this->faker->sentence(4),
+            'description' => $this->faker->sentence(10)
         ];
     }
 }

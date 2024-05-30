@@ -1,16 +1,16 @@
 <div class="relative p-6 md:p-16">
     <!-- Grid -->
-    <div class="relative z-10 lg:grid lg:grid-cols-12 lg:gap-16 lg:items-center">
+    <div class="relative mt-6 z-10 lg:grid lg:grid-cols-12 lg:gap-16 lg:items-center">
         <div class="mb-10 lg:mb-0 lg:col-span-6 lg:col-start-8 lg:order-2">
-            <h2 class="text-2xl text-gray-800 font-bold sm:text-3xl dark:text-neutral-200">
+            <h2 class="py-2 text-2xl text-gray-800 font-bold sm:text-3xl dark:text-neutral-200">
                 {{ $product->name }}
             </h2>
 
-            <div class="mt-4 sm:items-center sm:gap-4 sm:flex">
+            <div class="mt-4 py-3 sm:items-center sm:gap-4 sm:flex">
                 <p
-                    class="text-2xl font-extrabold text-gray-900 sm:text-3xl dark:text-white"
+                    class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white"
                 >
-                    ${{ $product->price }}
+                    {{ config('app.currency_symbol') }} {{ $product->price }}
                 </p>
 
                 <div class="flex items-center gap-2 mt-2 sm:mt-0">

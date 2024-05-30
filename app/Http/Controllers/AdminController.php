@@ -8,6 +8,7 @@ use App\Models\Post;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\View\View;
 
 class AdminController extends Controller
@@ -22,7 +23,11 @@ class AdminController extends Controller
         $posts = Post::query()->latest()->get();
         $published = $posts->where('is_published')->count();
         $products = Product::query()->latest()->get();
+
+//        $orders = Order::query()->get(['order_number', 'total', 'created_at']);
+
         $orders = Order::select(['id', 'user_id', 'total', 'discount_id', 'customer_name'])->latest()->get();
+
         $users = User::all();
         $messages = ContactMessage::all();
 
