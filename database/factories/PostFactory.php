@@ -26,7 +26,8 @@ class PostFactory extends Factory
             'category_id' => random_int(1, 6),
             'tag_id' => random_int(1,6),
             'user_id' => 1,
-            'is_published' => true
+            'is_published' => true,
+            'views' => rand(0, 100000)
         ];
     }
 }

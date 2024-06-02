@@ -34,13 +34,15 @@ class DatabaseSeeder extends Seeder
 
             $admin->role = 'A';
             $admin->save();
-            User::factory(10)->create();
+            User::factory(40)->create([
+                'created_at' => now()->subMonths(rand(0,5))->subHours(rand(24,120))
+            ]);
 
             \Laravel\Prompts\info('Admin and users seeded.');
 
             \Laravel\Prompts\info('Creating Posts');
-            Tag::factory(10)->create();
-            Category::factory()->has(Post::factory()->count(5))->count(15)->create();
+            Tag::factory(40)->create();
+            Category::factory()->has(Post::factory()->count(10))->count(25)->create();
             \Laravel\Prompts\info('Posts seeded');
 
             // initialize discount
@@ -57,10 +59,12 @@ class DatabaseSeeder extends Seeder
 
             \Laravel\Prompts\info("Discount seeded.");
 
-            $users = User::factory(10)->create();
+            $users = User::factory(40)->create([
+                'created_at' => now()->subYear()->addMonths(rand(1,6))->subHours(rand(34,120))
+            ]);
 
             $products = Product::factory()
-                ->count(30)
+                ->count(50)
                 ->has(
                     ProductFeature::factory()
                         ->count(3)
@@ -69,16 +73,16 @@ class DatabaseSeeder extends Seeder
 
             \Laravel\Prompts\info("Users & order products seeded.");
 
-            for ($i__ = 1; $i__ <= 20; $i__++)
+            for ($i__ = 1; $i__ <= 100; $i__++)
             {
                 // order for a random user
                 $order = Order::factory()->create([
                     'user_id' => $users->random()->id,
                     'discount_id' => $discount->id,
                     'created_at' => Arr::random([
-                        now()->subMonths(rand(2, 5))->addHours(rand(24,180)),
-                        now()->subYears(rand(2,3))->addMonths((rand(1,8)))->addHours(rand(14,80)),
-                        now()->subYear()->addMonths(rand(1,6))->subHours(rand(34,120))
+                        now()->subMonths(rand(0, 5))->addHours(rand(24,48)),
+                        now()->subYears(rand(2,3))->addMonths((rand(1,12)))->addHours(rand(14,72)),
+                        now()->subYear()->addMonths(rand(0,10))->subHours(rand(24,144))
                     ])
                 ]);
 
@@ -107,7 +111,6 @@ class DatabaseSeeder extends Seeder
 
                 $order->total -= (float)number_format((float)$order->subtotal * (float)$discount->rate, 2);
                 $order->save();
-
             }
 
             \Laravel\Prompts\info("Orders processed.");

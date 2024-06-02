@@ -1,4 +1,5 @@
 <?php
+//dd($orders->count())
 ?>
 <x-app-layout>
     <x-slot:title>
@@ -11,48 +12,13 @@
         </h2>
     </x-slot>
 
-    <div class="min-h-screen bg-slate-50 dark:bg-slate-900 dark:text-skate-100 px-4">
+    <div class="min-h-screen bg-slate-100 dark:bg-slate-900 dark:text-slate-200 px-4">
         <div class="overflow-hidden shadow-sm sm:rounded-lg">
-            <div class="container mx-auto mt-6 lg:mt-10 px-4">
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 lg:gap-8">
-                    <div class="p-3 bg-gradient-to-br from-orange-300 to-orange-500 dark:from-orange-700 dark:to-orange-900 text-gray-50 rounded-lg">
-                        <p class="w-fit text-sm text-black font-semibold">
-                            Products
-                        </p>
-                        <p class="mt-3 text-center text-3xl md:text-5xl font-bold">
-                            {{ $products->count() }}
-                        </p>
-                    </div>
 
-                    <div class="p-3 bg-gradient-to-tr from-lime-500 to-violet-500 text-gray-50 rounded-lg">
-                        <p class="w-fit text-sm text-black font-semibold">
-                            Contacts
-                        </p>
-                        <p class="mt-3 text-center text-3xl md:text-5xl font-bold">
-                            {{ $contactMessages->count() }}
-                        </p>
-                    </div>
+            <x-parts.dashboard-stats :users="$users" :$posts :$products :$orders />
 
-                    <div class="p-3 bg-gradient-to-b from-orange-500 to-gray-600 text-gray-50 rounded-lg">
-                        <p class="w-fit text-sm text-black font-semibold">
-                            Published Posts
-                        </p>
-                        <p class="mt-3 text-center text-3xl md:text-5xl font-bold">
-                            {{ $publishedCount }}
-                        </p>
-                    </div>
-
-                    <div class="p-3 bg-gradient-to-b from-orange-500 to-gray-600 text-gray-50 rounded-lg">
-                        <p class="w-fit text-sm text-black font-semibold">
-                            All Orders
-                        </p>
-                        <p class="mt-3 text-center text-3xl md:text-5xl font-bold">
-                            {{ $orders->count() }}
-                        </p>
-                    </div>
-                </div>
-
-                <livewire:charts.sales />
+            <div class="max-w-6xl mx-auto">
+                <livewire:charts.sales :orders="$orders" :products="$products" :$topProducts :$purchasedProducts />
             </div>
 
             <div class="grid md:grid-cols-3 gap-6">
@@ -63,19 +29,26 @@
                             Latest Posts
                         </h2>
 
-                        <div class="flex flex-col divide-y">
-                            @foreach($posts->take(5) as $post)
-                                <div class="grid mt-3 py-2 items-center">
-                                    <p class="w-max py-1 px-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-xs xl:text-sm">
-                                        Views:
-                                        <span class="pl-1.5 text-purple-500 font-medium"> {{ $post->views }}</span>
-                                    </p>
-                                    <a href="{{ route('post.show', $post->slug) }}"
-                                       class="text-sm hover:underline underline-offset-4 text-slate-700 dark:text-slate-200 hover:text-orange-500 dark:hover:text-orange-500">
-                                        {{ $post->title }}
-                                    </a>
-                                </div>
-                            @endforeach
+                        <div class="flex flex-col">
+                            <ul class="divide-y divide-gray-200 dark:divide-gray-700">
+                                @foreach($posts->take(5) as $post)
+                                    <li class="pb-3 sm:pb-4">
+                                        <a href="{{ route( 'post.show', $post->slug) }}" class="flex items-center space-x-4 rtl:space-x-reverse">
+                                            <div class="flex-1 min-w-0">
+                                                <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                                                    {{ $post->title }}
+                                                </p>
+                                                <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                                                    {{ $post->category->name }}
+                                                </p>
+                                            </div>
+                                            <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                                                {{ $post->views }}
+                                            </div>
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ul>
                         </div>
                     </div>
                 </div>

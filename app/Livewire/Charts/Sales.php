@@ -3,34 +3,73 @@
 namespace App\Livewire\Charts;
 
 use App\Models\Order;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Livewire\Component;
 
 class Sales extends Component
 {
-    public int $year = 2024;
+    public int $year = 2023;
     public mixed $ordersPerYear;
+    public mixed $orders;
+    public mixed $products;
+    public mixed $topProducts;
+    public mixed $purchasedProducts;
 
-    public function mount()
+    public int $maxChartBarValue = 10;
+
+    public array $months = [];
+    public array $orderCountPerMonth = [];
+
+    public mixed $totalPerYear = 0;
+    public float $yearTotal = 0;
+
+    public function getYearOrders()
     {
         $this->ordersPerYear = Order::query()
-            ->whereYear('created_at', $this->year)
+            ->getYearOrders($this->year)
             ->oldest()
             ->get(['order_number', 'total', 'created_at'])
             ->groupBy(
                 fn($order) => Carbon::parse($order->created_at)->monthName
-            )
-            ->toArray();
+            )->all();
 
-//        $this->thisYearOrders = Order::query()
-//            ->whereYear('created_at', date('Y'))
-//            ->selectRaw('month(created_at) as month')
-//            ->groupBy('month')
-//            ->orderBy('month')
-//            ->pluck('month', 'total')
-//            ->values();
-//            ->dd();
+        $this->updateMonths();
+
+        $this->updateTotalAndCount();
+
+        $this->maxChartBarValue = max($this->orderCountPerMonth) + 2;
+
     }
+
+    public function updateChart()
+    {
+        $this->getYearOrders();
+
+        $this->dispatch('update-sales-chart');
+    }
+
+    public function updateMonths()
+    {
+        $this->months = collect($this->ordersPerYear)->keys()->values()->toArray();
+    }
+
+    public function updateTotalAndCount()
+    {
+        foreach ($this->ordersPerYear as $monthly) {
+            $this->yearTotal += $monthly->sum('total');
+            $this->orderCountPerMonth[] = $monthly->count();
+        }
+        $this->totalPerYear = number_format($this->yearTotal, 2);
+    }
+
+    public function mount()
+    {
+        $this->year = now()->year;
+
+        $this->getYearOrders();
+    }
+
     public function render()
     {
         return view('livewire.charts.sales');

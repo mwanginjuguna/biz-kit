@@ -66,4 +66,9 @@ class Order extends Model
     {
         return $query->where('status', $status);
     }
+
+    public function scopeGetYearOrders(Builder $query, int $year): Builder
+    {
+        return $query->whereYear('created_at', $year);
+    }
 }
