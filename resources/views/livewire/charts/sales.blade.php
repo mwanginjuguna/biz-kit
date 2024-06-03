@@ -41,7 +41,7 @@
                     </svg>
 
                 </x-slot:svg>
-                <h3 class="text-xl font-medium text-blue-600 dark:text-blue-500">
+                <h3 class="text-xl font-medium text-green-600 dark:text-green-500">
                     {{ config('app.currency_symbol') . ' ' . number_format($orders->sum('total'), 2) }}
                 </h3>
             </x-cards.simple-stats-card>

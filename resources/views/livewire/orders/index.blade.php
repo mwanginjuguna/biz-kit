@@ -1,7 +1,4 @@
-<div class="max-w-4xl mx-auto px-3 mt-5 text-slate-800 dark:text-slate-200">
-    <div>
-        <h1 class="p-4 text-2xl font-extrabold">My Orders</h1>
-    </div>
+<div class="text-slate-800 dark:text-slate-200">
     @foreach($orders as $order)
         <div
             class="mt-5 px-5 py-4 grid md:grid-cols-3 gap-x-1.5 bg-white dark:bg-slate-800 rounded-lg shadow-md"
@@ -23,7 +20,7 @@
 
                 <div class="flex flex-row gap-x-1.5 border-b dark:border-slate-600">
                     <p class="font-semibold text-amber-800 dark:text-amber-500">Total: </p>
-                    <p>$ {{ $order->total }}</p>
+                    <p>{{ config('app.currency_symbol') . ' ' . number_format($order->total, 2) }}</p>
                 </div>
 
                 <div class="flex flex-row gap-x-1.5">
@@ -33,12 +30,12 @@
             </div>
 
             <div class="mt-5 md:mt-0 md:col-span-2 px-3 md:pl-2 md:border-l">
-                <div class="">
-                    <p class="text-sm text-amber-800 dark:text-amber-500">
+                <div class="space-y-1 text-sm">
+                    <p class="text-amber-800 dark:text-amber-500">
                         Payment Details:
                         @if($order->is_paid)
                             <span class="text-green-700 dark:text-green-500 uppercase">
-                                Paid via {{ $order->payment_gateway }}
+                                Paid {{ isset($order->payment_gateway) ? ' via '. $order->payment_gateway : '' }}
                             </span>
                         @else
                             <span class="text-red-700 dark:text-red-500 uppercase">
@@ -46,21 +43,25 @@
                             </span>
                         @endif
                     </p>
-                    <p class="md:pl-4 pt-1 text-sm">
+                    <p class="md:pl-4">
                         Payment Id:
-                        <span class="text-slate-600 dark:text-slate-400">
-                            {{ $order->payment_id}}
+                        <span class="text-xs text-slate-600 dark:text-slate-400">
+                            {{ $order->payment_id ?? 'Not Set'}}
                         </span>
                     </p>
                 </div>
 
-                <div class="mt-2 gap-x-1.5 flex">
-                    <p class="font-semibold text-amber-800 dark:text-amber-500 pr-2">Note: </p>
-                    <p class="leading-tight text-sm italic">"{{ $order->notes }}"</p>
+                <div class="mt-1 text-xs ">
+                    <p class="font-semibold text-sm text-amber-800 dark:text-amber-500">Customer Details </p>
+                    <p class="leading-tight italic">{{ $order->customer_name }}</p>
+                    <p class="leading-tight italic">{{ $order->customer_email }}</p>
+                    <p class="leading-tight italic">{{ $order->customer_phone }}</p>
                 </div>
             </div>
 
-            <a href="{{ route('orders.show', $order->id) }}" class="md:col-span-3 mt-1 px-5 text-right text-sm underline underline-offset-4 decoration-dotted text-blue-500 hover:text-blue-600 dark:hover:text-blue-400">View Order</a>
+            <a href="{{ route('orders.show', $order->id) }}" class="md:col-span-3 mt-1 px-5 text-right text-sm underline underline-offset-4 decoration-dotted text-blue-500 hover:text-blue-600 dark:hover:text-blue-400">
+                View Order
+            </a>
         </div>
     @endforeach
 

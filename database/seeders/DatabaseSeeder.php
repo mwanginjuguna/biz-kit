@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Category;
+use App\Models\ContactMessage;
 use App\Models\Discount;
 use App\Models\Order;
 use App\Models\OrderItem;
@@ -34,7 +35,7 @@ class DatabaseSeeder extends Seeder
 
             $admin->role = 'A';
             $admin->save();
-            User::factory(40)->create([
+            User::factory(450)->create([
                 'created_at' => now()->subMonths(rand(0,5))->subHours(rand(24,120))
             ]);
 
@@ -42,7 +43,7 @@ class DatabaseSeeder extends Seeder
 
             \Laravel\Prompts\info('Creating Posts');
             Tag::factory(40)->create();
-            Category::factory()->has(Post::factory()->count(10))->count(25)->create();
+            Category::factory()->has(Post::factory()->count(50))->count(25)->create();
             \Laravel\Prompts\info('Posts seeded');
 
             // initialize discount
@@ -59,12 +60,12 @@ class DatabaseSeeder extends Seeder
 
             \Laravel\Prompts\info("Discount seeded.");
 
-            $users = User::factory(40)->create([
+            $users = User::factory(600)->create([
                 'created_at' => now()->subYear()->addMonths(rand(1,6))->subHours(rand(34,120))
             ]);
 
             $products = Product::factory()
-                ->count(50)
+                ->count(750)
                 ->has(
                     ProductFeature::factory()
                         ->count(3)
@@ -73,7 +74,7 @@ class DatabaseSeeder extends Seeder
 
             \Laravel\Prompts\info("Users & order products seeded.");
 
-            for ($i__ = 1; $i__ <= 100; $i__++)
+            for ($i__ = 1; $i__ <= 500; $i__++)
             {
                 // order for a random user
                 $order = Order::factory()->create([
@@ -114,6 +115,12 @@ class DatabaseSeeder extends Seeder
             }
 
             \Laravel\Prompts\info("Orders processed.");
+
+            ContactMessage::factory(58)->create([
+                'user_id' => $users->random('id')
+            ]);
+
+            \Laravel\Prompts\info("Messages seeded.");
 
             Product::factory(15)
                 ->has(ProductFeature::factory()->count(3))

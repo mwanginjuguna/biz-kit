@@ -56,6 +56,7 @@ class Sales extends Component
 
     public function updateTotalAndCount()
     {
+        $this->yearTotal = 0;
         foreach ($this->ordersPerYear as $monthly) {
             $this->yearTotal += $monthly->sum('total');
             $this->orderCountPerMonth[] = $monthly->count();

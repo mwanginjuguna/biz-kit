@@ -67,4 +67,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Wishlist::class);
     }
+
+    public function contactMessages(): HasMany
+    {
+        $this->hasMany(ContactMessage::class);
+    }
 }
