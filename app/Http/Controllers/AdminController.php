@@ -56,7 +56,7 @@ class AdminController extends Controller
             'posts' => $posts,
             'products' => $data->get('products'),
             'topProducts' => $this->topProducts(),
-            'purchasedProducts' => $this->purchasedProducts(),
+            'purchasedProducts' => $this->purchasedProducts()->count(),
             'orders' => $data->get('orders'),
             'users' => $data->get('users'),
             'messages' => ContactMessage::all()

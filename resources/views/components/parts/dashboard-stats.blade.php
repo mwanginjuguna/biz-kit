@@ -16,7 +16,7 @@
                         Registered Users
                     </p>
                     <h3 class="mt-1 text-xl sm:text-2xl font-semibold text-blue-600 dark:text-blue-500">
-                        {{ $users->count() }}
+                        {{ number_format($users->count(), 0) }}
                     </h3>
 
                     <div class="mt-1 flex justify-between items-center">
@@ -58,7 +58,7 @@
                                 <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
                             </svg>
                             <span class="inline-block">
-                                {{ $pdOr/$orTtl * 100 }}%
+                                {{ number_format($pdOr/$orTtl * 100, 2) }}%
                             </span>
                         </span>
                     </div>
@@ -89,7 +89,7 @@
                             <svg class="inline-block size-3 self-center" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                 <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
                             </svg>
-                            <span class="inline-block">{{ $stocked/$totalProducts * 100 }}%</span>
+                            <span class="inline-block">{{ number_format($stocked/$totalProducts * 100, 2) }}%</span>
                         </span>
                     </div>
                 </div>
@@ -112,7 +112,7 @@
                     <div class="mt-1 flex justify-between items-center">
                         <p class="text-xs text-gray-500 dark:text-neutral-500">
                             Total Views <span class="font-semibold text-gray-800 dark:text-neutral-200">
-                                {{ $posts->sum('views') }}
+                                {{ number_format($posts->sum('views'), 0) }}
                             </span>
                         </p>
                         <span class="ms-1 inline-flex items-center gap-1.5 py-1 px-2 rounded-md text-xs font-medium bg-lime-300 text-gray-800 dark:bg-lime-600 dark:text-neutral-200">
