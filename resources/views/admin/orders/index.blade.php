@@ -7,7 +7,7 @@
         </h1>
 
 
-        <!-- Card Section -->
+        <!-- Stats Section -->
         <div class="py-10">
             <!-- Grid -->
             <div class="grid lg:grid-cols-3 border border-slate-200 shadow-sm rounded-xl overflow-hidden dark:border-slate-800">
@@ -94,7 +94,7 @@
             </div>
             <!-- End Grid -->
         </div>
-        <!-- End Card Section -->
+        <!-- End Stats Section -->
 
         <livewire:orders.index :orders="$orders" />
     </div>

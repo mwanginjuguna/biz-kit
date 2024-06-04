@@ -37,6 +37,22 @@ return new class extends Migration
             $table->softDeletes();
             $table->timestamps();
         });
+
+        Schema::create('product_reviews', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('product_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->text('review');
+            $table->timestamps();
+        });
+
+        Schema::create('product_ratings', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('product_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->decimal('rating', 1, 1)->default(5.0);
+            $table->timestamps();
+        });
     }
 
     /**
@@ -46,5 +62,7 @@ return new class extends Migration
     {
         Schema::dropIfExists('products');
         Schema::dropIfExists('product_features');
+        Schema::dropIfExists('product_reviews');
+        Schema::dropIfExists('product_ratings');
     }
 };

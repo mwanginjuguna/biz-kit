@@ -23,8 +23,15 @@ class ProductFactory extends Factory
 
         $name = $this->faker->sentence(5);
 
-        $productCategories = ['Clothing', 'Phones', 'Electronics', 'Fitness', 'Fashion', 'Food'];
-        $productBrands = ['Gucci', 'Mamba', 'Afrikana', 'Simba', 'Tesla', 'Sony'];
+        // sample product categories
+        $productCategories = ['Clothing', 'Phones', 'Electronics', 'Fitness', 'Fashion',
+            'Food', 'Computing', 'Energy', 'Cars', 'Entertainment', 'Agriculture'];
+
+        // Sample Product brands
+        $productBrands = ['Gucci', 'Mamba', 'Afrikana', 'Simba', 'Tesla', 'Sony',
+            'Maara', 'Savannah', 'Maasai', 'Safaricom', 'Tesla', 'Meta', 'Alibaba',
+            'Amazon', 'Wakanda', 'Lion', 'Puma', 'Toyota', 'Rasta', 'Apple', 'Google',
+            'Samsung', 'Huawei', 'Xiaomi', 'Hp'];
 
         return [
             'name' => $name,

@@ -50,9 +50,12 @@ class User extends Authenticatable
 
     public function posts(): HasMany
     {
-        $this->hasMany(Post::class);
+        return $this->hasMany(Post::class);
     }
 
+    /**
+     * User can comment on posts.
+     */
     public function comments(): HasMany
     {
         return $this->hasMany(Comment::class);
@@ -68,8 +71,27 @@ class User extends Authenticatable
         return $this->hasOne(Wishlist::class);
     }
 
+    /**
+     * Messages from user via the contact-us form on route('contact')
+     */
     public function contactMessages(): HasMany
     {
-        $this->hasMany(ContactMessage::class);
+        return $this->hasMany(ContactMessage::class);
+    }
+
+    /**
+     * A customer's reviews for various products.
+     */
+    public function productReviews(): HasMany
+    {
+        return $this->hasMany(ProductReview::class);
+    }
+
+    /**
+     * A customer's ratings for various products.
+     */
+    public function productRatings(): HasMany
+    {
+        return $this->hasMany(ProductRating::class);
     }
 }

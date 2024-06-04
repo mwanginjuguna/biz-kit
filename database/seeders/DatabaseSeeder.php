@@ -10,6 +10,8 @@ use App\Models\OrderItem;
 use App\Models\Post;
 use App\Models\Product;
 use App\Models\ProductFeature;
+use App\Models\ProductRating;
+use App\Models\ProductReview;
 use App\Models\Tag;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -35,6 +37,8 @@ class DatabaseSeeder extends Seeder
 
             $admin->role = 'A';
             $admin->save();
+
+            // random users
             User::factory(450)->create([
                 'created_at' => now()->subMonths(rand(0,5))->subHours(rand(24,120))
             ]);
@@ -60,10 +64,12 @@ class DatabaseSeeder extends Seeder
 
             \Laravel\Prompts\info("Discount seeded.");
 
-            $users = User::factory(600)->create([
+            // seed users who will be used to seed orders
+            $users = User::factory(800)->create([
                 'created_at' => now()->subYear()->addMonths(rand(1,6))->subHours(rand(34,120))
             ]);
 
+            // seed products that will be used to create orders
             $products = Product::factory()
                 ->count(750)
                 ->has(
@@ -96,6 +102,16 @@ class DatabaseSeeder extends Seeder
                 {
                     $product = $products->random();
 
+                    // review of the product
+                    ProductReview::factory()->count(1)->for($product)->create([
+                        'user_id' => $order->user_id
+                    ]);
+
+                    // rating of the product by an actual user
+                    ProductRating::factory()->count(1)->for($product)->create([
+                        'user_id' => $order->user_id
+                    ]);
+
                     $q = random_int(1, 3); // quantity
 
                     // we'll use products price to calculate the subtotal
@@ -116,8 +132,9 @@ class DatabaseSeeder extends Seeder
 
             \Laravel\Prompts\info("Orders processed.");
 
+            // random contact messages from registered users
             ContactMessage::factory(58)->create([
-                'user_id' => $users->random('id')
+                'user_id' => rand(1, 800)//$users->random()->id
             ]);
 
             \Laravel\Prompts\info("Messages seeded.");

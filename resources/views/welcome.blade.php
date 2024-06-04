@@ -22,6 +22,13 @@
                     </div>
                 </x-modal>
             </div>
+
+
+            <div class="my-4 px-4 py-10">
+                <label>
+                    <input type="range" min="0" max="5" step="0.1">
+                </label>
+            </div>
         </div>
     </div>
 </x-guest-layout>

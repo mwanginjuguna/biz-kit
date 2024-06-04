@@ -46,7 +46,8 @@ class Product extends Model
     }
 
     /**
-     * features
+     * In addition to description, a product should have key features.
+     * These are used to describe the main selling points for a product.
      */
     public function productFeatures(): HasMany
     {
@@ -54,7 +55,25 @@ class Product extends Model
     }
 
     /**
-     * features
+     * Ratings - A user/customer should be able to rate products
+     * they have purchased. A rating scale is 1.0 to 5.0
+     */
+    public function productRatings(): HasMany
+    {
+        return $this->hasMany(ProductRating::class);
+    }
+
+    /**
+     * Reviews - A customer should be able to review a product they
+     * have purchased.
+     */
+    public function productReviews(): HasMany
+    {
+        return $this->hasMany(ProductReview::class);
+    }
+
+    /**
+     * Orders
      */
     public function orders(): BelongsToMany
     {

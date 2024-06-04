@@ -153,10 +153,7 @@
         </div>
         <!-- End Card Section -->
 
-        <div class="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-5 gap-y-10 border-t border-slate-200 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-5">
-            @foreach($products as $product)
-                <x-cards.product-card :product="$product" />
-            @endforeach
-        </div>
+        <!-- index of products -->
+        <livewire:products.product-list :$products />
     </section>
 </x-app-layout>

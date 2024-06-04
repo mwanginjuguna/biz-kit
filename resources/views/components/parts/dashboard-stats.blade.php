@@ -82,7 +82,7 @@
                     <div class="mt-1 flex justify-between items-center">
                         <p class="text-xs text-gray-500 dark:text-neutral-500">
                             stocked <span class="font-semibold text-gray-800 dark:text-neutral-200">
-                                {{ $stocked = $products->where('stock_quantity', '>=', 0)->count() }}
+                                {{ $stocked = $products->where('stock_quantity', '>', 0)->count() }}
                             </span>
                         </p>
                         <span class="ms-1 inline-flex items-center gap-1.5 py-1 px-2 rounded-md text-xs font-medium bg-lime-300 text-gray-800 dark:bg-lime-600 dark:text-neutral-200">
