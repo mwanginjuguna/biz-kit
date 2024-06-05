@@ -1,4 +1,4 @@
-<div class="flex items-center gap-3 p-3 bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg">
+<div class="flex items-center gap-3 p-3 {{ $product->stock_quantity == 0 ? 'bg-red-100 dark:bg-red-800' : 'bg-slate-100 dark:bg-slate-800' }} border border-slate-300 dark:border-slate-700 rounded-lg">
     <div class="flex-shrink-0">
         <img class="w-12 h-12 rounded-xl" src="/storage/{{ $product->image }}" alt="{{ $product->name }} image">
     </div>
@@ -18,5 +18,13 @@
             <p class="py-1">Remaining items: <span class="text-orange-700 dark:text-orange-300">{{ $product->stock_quantity }}</span> </p>
         </div>
 
+        <div class="py-2 flex flex-row text-xs lg:text-sm">
+            @if($product->stock_quantity == 0)
+                <x-primary-button>Restock</x-primary-button>
+            @endif
+
+            <x-secondary-link href="{{ route('admin.products.edit', $product->slug) }}">View</x-secondary-link>
+        </div>
     </div>
+
 </div>

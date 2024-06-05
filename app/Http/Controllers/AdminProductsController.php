@@ -26,4 +26,11 @@ class AdminProductsController extends Controller
     {
         return Product::query()->whereHas('orders')->get();
     }
+
+    public function editProduct(Request $request, Product $product): View
+    {
+        return view('admin.products.edit', [
+            'product' => $product
+        ]);
+    }
 }

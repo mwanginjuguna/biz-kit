@@ -53,6 +53,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
     // admin products
     Route::get('/admin/products', [AdminProductsController::class, 'products'])->name('admin.products');
+    Route::get('/admin/products/edit/{product:slug}', [AdminProductsController::class, 'editProduct'])->name('admin.products.edit');
     // admin orders
 
     // activate mpesa urls for lipa na mpesa notifications
