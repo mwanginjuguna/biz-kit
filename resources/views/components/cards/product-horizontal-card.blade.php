@@ -18,9 +18,9 @@
             <p class="py-1">Remaining items: <span class="text-orange-700 dark:text-orange-300">{{ $product->stock_quantity }}</span> </p>
         </div>
 
-        <div class="py-2 flex flex-row text-xs lg:text-sm">
+        <div class="py-2 flex flex-row gap-4 text-xs lg:text-sm">
             @if($product->stock_quantity == 0)
-                <x-primary-button>Restock</x-primary-button>
+                <x-primary-link href="{{ route('admin.products.edit', $product->slug) }}">Restock</x-primary-link>
             @endif
 
             <x-secondary-link href="{{ route('admin.products.edit', $product->slug) }}">View</x-secondary-link>

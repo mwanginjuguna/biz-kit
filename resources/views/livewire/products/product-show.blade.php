@@ -61,6 +61,8 @@
                         <p class="py-1">Brand: <span class="text-orange-700 dark:text-orange-300">{{ $product->brand }}</span> </p>
                         <p class="py-1">Category: <span class="text-orange-700 dark:text-orange-300">{{ $product->category }}</span> </p>
                         <p class="py-1">Remaining items: <span class="text-orange-700 dark:text-orange-300">{{ $product->stock_quantity }}</span> </p>
+                        <p class="py-1">Shipped from: <span class="text-orange-700 dark:text-orange-300">{{ $product->shipped_from }}</span> </p>
+                        <p class="py-1">Return Policy: <span class="text-orange-700 dark:text-orange-300">{{ $product->return_policy }}</span> </p>
                     </div>
 
                     <h4 class="py-1 text-sm sm:text-lg font-semibold">
@@ -137,10 +139,11 @@
 
         <div class="md:col-span-2 p-2">
             <p class="mb-6 text-gray-500 dark:text-gray-400">
+                <span class="block font-bold">Product Description:</span>
                 {{ $product->description }}
             </p>
 
-            <div class="max-w-lg py-4 mt-6">
+            <div id="reviews" class="max-w-lg py-4 mt-6">
                 <div class="py-2 text-slate-600 dark:text-slate-400">
                     <h4 class="py-2 font-semibold text-lg">Reviews</h4>
                     @forelse($product->productReviews as $rv)
