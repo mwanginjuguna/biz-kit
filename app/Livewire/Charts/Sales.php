@@ -15,6 +15,9 @@ class Sales extends Component
     public mixed $products;
     public mixed $topProducts;
     public mixed $purchasedProducts;
+    public int $productsCount;
+    public int $ordersCount;
+    public float $revenue;
 
     public int $maxChartBarValue = 10;
 
@@ -67,6 +70,8 @@ class Sales extends Component
     public function mount()
     {
         $this->year = now()->year;
+
+        $this->revenue = Order::query()->sum('total');
 
         $this->getYearOrders();
     }

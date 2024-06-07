@@ -42,7 +42,7 @@
 
                 </x-slot:svg>
                 <h3 class="text-xl font-medium text-green-600 dark:text-green-500">
-                    {{ config('app.currency_symbol') . ' ' . number_format($orders->sum('total'), 2) }}
+                    {{ config('app.currency_symbol') . ' ' . number_format($revenue, 2) }}
                 </h3>
             </x-cards.simple-stats-card>
             <!-- End Card -->
@@ -57,7 +57,7 @@
                             Products Overview
                         </p>
                         <h3 class="mt-1 text-xl sm:text-2xl font-semibold text-blue-600 dark:text-blue-500">
-                            {{ $products->count() }}
+                            {{ $productsCount }}
                         </h3>
                         <div class="mt-1 flex justify-between items-center">
                             <p class="text-sm text-gray-500 dark:text-neutral-500">
@@ -68,7 +68,7 @@
                                 <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
                                 </svg>
                                 <span class="inline-block">
-                                {{ number_format($purchasedProducts/$products->count() * 100, 1) }}%
+                                {{ number_format($purchasedProducts/$productsCount * 100, 1) }}%
                                 </span>
                             </span>
                         </div>

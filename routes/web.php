@@ -13,8 +13,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome')->name('home');
 Route::view('/about', 'pages.about')->name('about');
+Route::view('/services', 'pages.about')->name('services');
+Route::view('/privacy-policy', 'pages.about')->name('privacy-policy');
+Route::view('/terms-and-conditions', 'pages.about')->name('terms-and-conditions');
 Route::view('/gallery/videos', 'pages.videos')->name('videos');
 Route::get('/products', [ProductController::class, 'index'])->name('products');
+Route::get('/shop', [ProductController::class, 'index'])->name('shop');
 Route::get('/blog', [PostController::class, 'index'])->name('blog');
 Route::view('/contact-me', 'pages.contact')->name('contact-me');
 

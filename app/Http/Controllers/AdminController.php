@@ -19,10 +19,11 @@ class AdminController extends Controller
     public function stats(): \Illuminate\Support\Collection
     {
         return collect([
-            'orders' => Order::query()->latest()->get(),
-            'products' => Product::query()->latest()->get(),
-            'users' => User::query()->whereNot('role', '=', 'A')->latest()->get(),
+            'orders' => Order::query(),
+            'products' => Product::query(),
+            'users' => User::query()->whereNot('role', '=', 'A'),
             'purchasedProducts' => $this->purchasedProducts(),
+            'customers' => Order::query()->selectRaw('count(distinct user_id) as customers')->get()->first()->customers
         ]);
     }
 
@@ -48,17 +49,21 @@ class AdminController extends Controller
 
     public function dashboard(): View
     {
-        $posts = Post::query()->orderBy('views', 'desc')->get();
+
+        $posts = Post::query()->with('category')->orderBy('views', 'desc')->get();
 
         $data = $this->stats();
 
         return view('admin.dashboard', [
             'posts' => $posts,
-            'products' => $data->get('products'),
+            'productsCount' => $data['products']->count(),
+            'stocked' => $data['products']->where('stock_quantity', '>', 0)->count(),
             'topProducts' => $this->topProducts(),
             'purchasedProducts' => $this->purchasedProducts()->count(),
-            'orders' => $data->get('orders'),
-            'users' => $data->get('users'),
+            'ordersCount' => $data['orders']->count(),
+            'pendingOrders' => $data['orders']->where('status', 'pending')->count(),
+            'customers' => $data['customers'],
+            'usersCount' => $data['users']->count(),
             'messages' => ContactMessage::all()
         ]);
     }

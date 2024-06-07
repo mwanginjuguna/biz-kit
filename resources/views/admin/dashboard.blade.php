@@ -15,10 +15,10 @@
     <div class="min-h-screen bg-slate-100 dark:bg-slate-900 dark:text-slate-200 px-4">
         <div class="overflow-hidden shadow-sm sm:rounded-lg">
 
-            <x-parts.dashboard-stats :users="$users" :$posts :$products :$orders />
+            <x-parts.dashboard-stats :$usersCount :$customers :$pendingOrders :$ordersCount :$posts :$productsCount :$stocked />
 
             <div class="max-w-6xl mx-auto">
-                <livewire:charts.sales :orders="$orders" :products="$products" :$topProducts :$purchasedProducts />
+                <livewire:charts.sales :ordersCount="$ordersCount" :productsCount="$productsCount" :$topProducts :$purchasedProducts />
             </div>
 
             <div class="grid md:grid-cols-3 gap-6">
@@ -68,7 +68,9 @@
                     </x-cards.simple-stats-card>
                     <!-- End Card -->
 
-                    <div></div>
+                    <div>
+
+                    </div>
                 </div>
             </div>
 
