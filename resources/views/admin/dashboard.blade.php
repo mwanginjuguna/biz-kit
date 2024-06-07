@@ -69,7 +69,12 @@
                     <!-- End Card -->
 
                     <div>
+                        <!--new-users -->
+                        <h4 class="py-2 font-semibold xl:text-xl">New Users</h4>
 
+                        <div class="mt-1">
+                            <x-cards.users-list :$users />
+                        </div>
                     </div>
                 </div>
             </div>

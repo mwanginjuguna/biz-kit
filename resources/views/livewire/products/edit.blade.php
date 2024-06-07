@@ -1,6 +1,6 @@
 <div x-data="{showUpdateForm: false}" class="grid lg:grid-cols-2 text-slate-800 dark:text-slate-200">
     <div class="mb-10 lg:mb-0 p-3">
-        <x-primary-button @click="showUpdateForm=!showUpdateForm" class="hidden lg:block">Show Product Update Form</x-primary-button>
+        <x-primary-button @click="showUpdateForm=!showUpdateForm" class="hidden lg:block">Edit This Product</x-primary-button>
         <!--title-->
         <h2 class="py-2 lg:mt-5 text-xl text-gray-800 font-semibold xl:text-3xl dark:text-neutral-200">
             {{ $product->name }}
@@ -91,6 +91,10 @@
             <span class="block font-bold">Product Description:</span>
             {{ $product->description }}
         </p>
+
+        <div class="py-3 mb-4">
+            <x-secondary-button @click="$dispatch('open-modal', 'upload-product-images')">Upload Extra Images</x-secondary-button>
+        </div>
 
         <x-primary-button class="lg:hidden" @click="showUpdateForm=!showUpdateForm">Show Product Update Form</x-primary-button>
     </div>
@@ -207,6 +211,15 @@
         </form>
     </div>
 
+    <div class="py-2">
+        <x-primary-button class="bg-red-600 dark:bg-red-500 text-slate-50"
+                          wire:click="deleteProduct({{ $product->id }})"
+                          wire:confirm="Are you sure you want to delete this product?"
+        >
+            Delete This Product
+        </x-primary-button>
+    </div>
+
     <x-modal name="product-feature">
         <div class="p-5 py-10">
             <p class="font-semibold">Add A Product Feature</p>
@@ -252,6 +265,53 @@
         </div>
     </x-modal>
 
+    <x-modal name="upload-product-images">
+        <div class="p-5 py-10">
+            <p class="font-semibold">Upload Additional Images for this Product</p>
+
+            <p class="py-1">Product Name: <span class="text-orange-700 dark:text-orange-300">{{ $product->name }}</span> </p>
+
+            <div class="lg:mt-2 flex-shrink-0">
+                <img class="w-44 h-auto rounded-xl" src="/storage/{{ $product->image }}" alt="{{ $product->name }} image">
+            </div>
+
+            <h4 class="py-1 text-sm sm:text-lg font-semibold">
+                Current Images
+            </h4>
+
+            <ul class="space-y-4 flex gap-x-4 text-left text-gray-500 dark:text-gray-400">
+                @forelse($product->productImages as $img)
+                    <div class="lg:mt-2 flex-shrink-0">
+                        <img class="w-36 h-auto rounded-xl" src="/storage/{{ $img->image_location }}" alt="{{ $img->title }} image">
+                        <x-primary-button wire:click="deleteProductImage({{$img->id}})">Delete</x-primary-button>
+                    </div>
+                @empty
+                    <li>No Images Yet.</li>
+                @endforelse
+            </ul>
+
+            <div class="max-w-lg mx-auto mt-6 p-3 rounded-lg bg-slate-50 dark:bg-slate-950">
+                <form class="" wire:submit="uploadProductImages" enctype="multipart/form-data">
+
+                    <div class="flex items-center justify-center w-full mb-4">
+                        <label for="productImages" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                            <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                                <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
+                                </svg>
+                                <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
+                                <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF</p>
+                            </div>
+                            <input id="productImages" wire:model="productImages" type="file" multiple class="hidden" />
+                        </label>
+                    </div>
+
+                    <x-primary-button>Upload Product Images</x-primary-button>
+                </form>
+            </div>
+        </div>
+    </x-modal>
+
     @script
     <script>
         Livewire.on('product-updated', () => {
@@ -260,6 +320,10 @@
 
         Livewire.on('feature-added', () => {
             Swal.fire({title: 'Success', text: 'Feature Added', icon: 'success'});
+        });
+
+        Livewire.on('image-deleted', () => {
+            Swal.fire({icon: 'warning', title: 'Deleted!', text:'Image Deleted Permanently!'});
         });
     </script>
     @endscript

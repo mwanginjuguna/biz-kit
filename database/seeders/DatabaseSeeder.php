@@ -10,6 +10,7 @@ use App\Models\OrderItem;
 use App\Models\Post;
 use App\Models\Product;
 use App\Models\ProductFeature;
+use App\Models\ProductImages;
 use App\Models\ProductRating;
 use App\Models\ProductReview;
 use App\Models\Tag;
@@ -62,13 +63,14 @@ class DatabaseSeeder extends Seeder
                 ]
             );
 
-            \Laravel\Prompts\info("Discount seeded.");
+            \Laravel\Prompts\info("Discount seeded. \n Seeding users.");
 
             // seed users who will be used to seed orders
             $users = User::factory(800)->create([
                 'created_at' => now()->subYear()->addMonths(rand(1,6))->subHours(rand(34,120))
             ]);
 
+            \Laravel\Prompts\info("Seeding Products.");
             // seed products that will be used to create orders
             $products = Product::factory()
                 ->count(750)
@@ -101,6 +103,11 @@ class DatabaseSeeder extends Seeder
                 for ($item = 1; $item < $itemCount; $item++)
                 {
                     $product = $products->random();
+
+                    // add extra images
+                    ProductImages::factory(2)->create([
+                        'product_id' => $product->id
+                    ]);
 
                     // review of the product
                     ProductReview::factory()->count(1)->for($product)->create([

@@ -64,6 +64,7 @@ class AdminController extends Controller
             'pendingOrders' => $data['orders']->where('status', 'pending')->count(),
             'customers' => $data['customers'],
             'usersCount' => $data['users']->count(),
+            'users' => $data['users']->latest()->take(5)->get(),
             'messages' => ContactMessage::all()
         ]);
     }

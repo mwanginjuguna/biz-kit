@@ -81,6 +81,14 @@ class Product extends Model
     }
 
     /**
+     * Orders
+     */
+    public function productImages(): HasMany
+    {
+        return $this->hasMany(ProductImages::class);
+    }
+
+    /**
      * Scope a query to only include active products.
      */
     public function scopeActive($query): \Illuminate\Database\Eloquent\Builder

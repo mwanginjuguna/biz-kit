@@ -24,8 +24,6 @@ class ProductShow extends Component
         $this->dispatch('remove-from-cart', product: $this->product);
     }
 
-
-
     public function render()
     {
         return view('livewire.products.product-show');

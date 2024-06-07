@@ -11,7 +11,7 @@
             </h1>
         </div>
 
-        <div class="max-w-6xl px-4 py-10 mx-auto">
+        <div class="">
             <livewire:products.product-show :product="$product" />
 
             <x-parts.similar-products :products="$similarProducts" />

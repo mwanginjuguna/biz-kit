@@ -26,7 +26,7 @@ class ProductEditForm extends Form
 
     public string $image = '';
 
-    public function update(Product $product): Product
+    public function update(object $product): object
     {
         $this->validate();
 

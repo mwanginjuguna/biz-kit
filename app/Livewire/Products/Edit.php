@@ -8,22 +8,27 @@ use App\Models\ProductFeature;
 use App\Models\ProductImages;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
+use Livewire\Attributes\Js;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class Edit extends Component
 {
+    use WithFileUploads;
     public ProductEditForm $form;
 
-    public Product $product;
+    public object $product;
 
     public mixed $productImage = null;
-    public array $productImages = [];
+    public $productImages;
 
     public string $productFeatureTitle = '';
     public string $productFeatureDescription = '';
 
-    public function mount()
+    public function mount(Product $product)
     {
+        $this->product = Product::query()->with(['productFeatures', 'productImages', 'productReviews', 'productRatings'])->where('id', $product->id)->first();
+
         $this->form->name = $this->product->name;
         $this->form->brand = $this->product->brand;
         $this->form->category = $this->product->category;
@@ -66,7 +71,7 @@ class Edit extends Component
 
     public function uploadProductImages()
     {
-        if (!empty($this->productImages)) {
+        if (!is_null($this->productImages)) {
             Arr::map($this->productImages, function($image) {
                 $imageUrl = Storage::disk('public')->putFileAs(
                     'products',
@@ -75,11 +80,30 @@ class Edit extends Component
                 );
 
                 ProductImages::create([
-                    'image' => $imageUrl,
+                    'image_location' => $imageUrl,
                     'product_id' => $this->product->id
                 ]);
             });
         }
+    }
+
+    public function deleteProductImage($id)
+    {
+        $im = ProductImages::where('id',$id)->first();
+        Storage::disk('public')->delete($im->image_location);
+        $im->delete();
+
+        $this->dispatch('image-deleted');
+    }
+
+    public function deleteProduct($id)
+    {
+        $pr = Product::findOrFail($id);
+        $pr->delete();
+
+        $this->dispatch('product-deleted');
+
+        $this->redirectRoute('admin.products');
     }
 
     public function render()

@@ -12,7 +12,7 @@ class AdminProductsController extends Controller
 {
     public function products(): View
     {
-        $products = Product::query()->latest()->get();
+        $products = Product::query()->orderBy('views', 'desc')->get();
         $users = User::all();
 
         return view('admin.products.index', [

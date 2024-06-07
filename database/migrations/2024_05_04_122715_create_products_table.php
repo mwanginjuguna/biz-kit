@@ -43,6 +43,7 @@ return new class extends Migration
             $table->foreignId('product_id')->constrained()->cascadeOnDelete();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->text('review');
+            $table->softDeletes();
             $table->timestamps();
         });
 
@@ -51,6 +52,15 @@ return new class extends Migration
             $table->foreignId('product_id')->constrained()->cascadeOnDelete();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->decimal('rating', 1, 1)->default(5.0);
+            $table->softDeletes();
+            $table->timestamps();
+        });
+
+        Schema::create('product_images', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('product_id')->constrained()->cascadeOnDelete();
+            $table->string('title')->nullable();
+            $table->string('image_location')->nullable(); // location in public disk storage e.g. 'products/image_1.png'
             $table->timestamps();
         });
     }
@@ -64,5 +74,6 @@ return new class extends Migration
         Schema::dropIfExists('product_features');
         Schema::dropIfExists('product_reviews');
         Schema::dropIfExists('product_ratings');
+        Schema::dropIfExists('product_images');
     }
 };

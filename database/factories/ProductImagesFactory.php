@@ -2,7 +2,10 @@
 
 namespace Database\Factories;
 
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\ProductImages>
@@ -16,8 +19,9 @@ class ProductImagesFactory extends Factory
      */
     public function definition(): array
     {
+        $productImages = Storage::disk('public')->files('products');
         return [
-            //
+            'image_location' => Arr::random($productImages)
         ];
     }
 }

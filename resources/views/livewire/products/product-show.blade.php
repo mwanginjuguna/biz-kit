@@ -1,4 +1,4 @@
-<div class="relative p-6 md:py-12">
+<div class="relative">
     <!-- Grid -->
     <div class="md:grid md:grid-cols-2 md:items-center md:gap-12 xl:gap-32">
         <div class="col-span-1 p-2">
@@ -8,7 +8,7 @@
 
         <div class="mt-5 sm:mt-10 lg:mt-0 md:col-span-1 p-2">
             <div class="mb-10 lg:mb-0">
-                <h2 class="py-2 text-2xl text-gray-800 font-bold sm:text-3xl dark:text-neutral-200">
+                <h2 class="py-2 text-xl text-gray-800 font-medium xl:text-3xl dark:text-neutral-200">
                     {{ $product->name }}
                 </h2>
 
@@ -137,27 +137,34 @@
             </div>
         </div>
 
-        <div class="md:col-span-2 p-2">
-            <p class="mb-6 text-gray-500 dark:text-gray-400">
+        <div class="md:col-span-2 p-2 text-gray-600 dark:text-gray-300">
+            <p class="mb-6">
                 <span class="block font-bold">Product Description:</span>
                 {{ $product->description }}
             </p>
 
-            <div id="reviews" class="max-w-lg py-4 mt-6">
-                <div class="py-2 text-slate-600 dark:text-slate-400">
-                    <h4 class="py-2 font-semibold text-lg">Reviews</h4>
-                    @forelse($product->productReviews as $rv)
+            <p class="mt-4 py-1 font-semibold">More Product Images</p>
+        </div>
 
-                        <p class="mt-2 p-2 bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:broder-slate-700 italic text-xs lg:text-sm rounded-lg">
-                            <span class="font-semibold text-orange-500 dark:text-orange-600">{{ $rv->user->name }} ~ </span>
-                            <span class="font-medium text-lg lg:text-2xl">"</span>{{ $rv->review }}"
-                        </p>
+        @forelse($product->productImages as $img)
+            <div class="col-span-1 p-2">
+                <img class="rounded-xl w-full" src="/{{ 'storage/'.$img->image_location }}" alt="{{ $product->name }} Image">
+            </div>
+        @empty
+            <div>No Images</div>
+        @endforelse
 
-
-                    @empty
-                        <p>No reviews yet.</p>
-                    @endforelse
-                </div>
+        <div id="reviews" class="max-w-lg py-4 mt-6">
+            <div class="py-2 text-slate-600 dark:text-slate-400">
+                <h4 class="py-2 font-semibold text-lg">Reviews</h4>
+                @forelse($product->productReviews as $rv)
+                    <p class="mt-2 p-2 bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:broder-slate-700 italic text-xs lg:text-sm rounded-lg">
+                        <span class="font-semibold text-orange-500 dark:text-orange-600">{{ $rv->user->name }} ~ </span>
+                        <span class="font-medium text-lg lg:text-2xl">"</span>{{ $rv->review }}"
+                    </p>
+                @empty
+                    <p>No reviews yet.</p>
+                @endforelse
             </div>
         </div>
     </div>

@@ -85,4 +85,12 @@
             <x-cards.product-horizontal-card :product="$product" />
         @endforeach
     </div>
+
+    @script
+    <script>
+        Livewire.on('product-deleted', () => {
+            Swal.fire({icon: 'warning', title: 'Deleted!', text:'Product Deleted Permanently!'});
+        });
+    </script>
+    @endscript
 </div>
