@@ -20,7 +20,7 @@ Route::view('/gallery/videos', 'pages.videos')->name('videos');
 Route::get('/products', [ProductController::class, 'index'])->name('products');
 Route::get('/shop', [ProductController::class, 'index'])->name('shop');
 Route::get('/blog', [PostController::class, 'index'])->name('blog');
-Route::view('/contact-me', 'pages.contact')->name('contact-me');
+Route::view('/contact', 'pages.contact')->name('contact-me');
 
 Route::get('/cart', [ActionsController::class, 'cart'])->name('cart');
 

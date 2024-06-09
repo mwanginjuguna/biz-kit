@@ -10,7 +10,7 @@ use Livewire\Attributes\Layout;
 use Livewire\Attributes\Locked;
 use Livewire\Volt\Component;
 
-new #[Layout('layouts.guest')] class extends Component
+new #[Layout('layouts.guest'), \Livewire\Attributes\Title('Password Reset Page')] class extends Component
 {
     #[Locked]
     public string $token = '';
