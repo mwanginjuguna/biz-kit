@@ -41,7 +41,7 @@ class Sales extends Component
 
         $this->updateTotalAndCount();
 
-        $this->maxChartBarValue = max($this->orderCountPerMonth) + 2;
+        $this->maxChartBarValue = $this->orderCountPerMonth ? max($this->orderCountPerMonth) + 2 : 0;
 
     }
 

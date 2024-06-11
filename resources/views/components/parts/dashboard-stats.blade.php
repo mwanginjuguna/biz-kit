@@ -29,7 +29,7 @@
                                 <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
                             </svg>
                             <span>
-                            {{ number_format($customers/$usersCount * 100, 1) }}%</span>
+                            {{ $customers ? number_format($customers/$usersCount * 100, 1) : 0 }}%</span>
                         </span>
                     </div>
                 </div>
@@ -58,7 +58,7 @@
                                 <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
                             </svg>
                             <span class="inline-block">
-                                {{ number_format($pendingOrders/$ordersCount * 100, 2) }}%
+                                {{ $ordersCount ? number_format($pendingOrders/$ordersCount * 100, 2) : 0 }}%
                             </span>
                         </span>
                     </div>
@@ -89,7 +89,7 @@
                             <svg class="inline-block size-3 self-center" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                 <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
                             </svg>
-                            <span class="inline-block">{{ number_format($stocked/$productsCount * 100, 2) }}%</span>
+                            <span class="inline-block">{{ $stocked ? number_format($stocked/$productsCount * 100, 2) : 0 }}%</span>
                         </span>
                     </div>
                 </div>
@@ -120,7 +120,7 @@
                                 <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
                             </svg>
                             <span class="inline-block">
-                                {{ number_format($posts->where('views', '>', 0)->count()/$pc * 100, 1) }}%
+                                {{ $pc ? number_format($posts->where('views', '>', 0)->count()/$pc * 100, 1) : 0 }}%
                             </span>
                         </span>
                     </div>
