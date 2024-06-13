@@ -74,15 +74,16 @@ class AdminController extends Controller
         return view('admin.file-uploads');
     }
 
-    public function orders()
+    public function orders(): View
     {
         $data = $this->stats();
 
         return view('admin.orders.index', [
-            'products' => $data->get('products')->count(),
+            'products' => $data['products']->count(),
             'purchasedProducts' => $this->purchasedProducts()->count(),
-            'orders' => $data->get('orders'),
-            'users' => $data->get('users')->count(),
+            'orders' => $data['orders']->get(),
+            'customers' => $data['customers'],
+            'users' => $data['users']->count(),
         ]);
     }
 }

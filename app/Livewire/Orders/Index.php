@@ -2,16 +2,21 @@
 
 namespace App\Livewire\Orders;
 
-use App\Models\OrderItem;
-use Illuminate\Database\Eloquent\Collection;
+use App\Models\Order;
+use Illuminate\Contracts\Pagination\Paginator;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class Index extends Component
 {
-    public Collection $orders;
+    use WithPagination;
 
     public function render()
     {
-        return view('livewire.orders.index');
+        $orders = Order::query()->simplePaginate(10);
+
+        return view('livewire.orders.index', [
+            'orders' => $orders
+        ]);
     }
 }
