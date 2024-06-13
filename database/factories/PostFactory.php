@@ -23,8 +23,8 @@ class PostFactory extends Factory
             'slug' => Str::slug($title),
             'excerpt' => $this->faker->realTextBetween(),
             'content' => $this->faker->paragraphs(6, true),
-            'category_id' => random_int(1, 6),
-            'tag_id' => random_int(1,6),
+            'category_id' => random_int(1, 3),
+            'tag_id' => random_int(1,3),
             'user_id' => 1,
             'is_published' => true,
             'views' => rand(0, 100000)

@@ -16,17 +16,11 @@ class IsAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        try {
-            if (Auth::user()->role !== 'A')
+        if (Auth::user()->role !== 'A')
             {
-                abort(Response::HTTP_FORBIDDEN);
+                return redirect('/dashboard');
             }
 
             return $next($request);
-
-        } catch (\Exception $exception)
-        {
-            return redirect()->route('login');
         }
-    }
 }
