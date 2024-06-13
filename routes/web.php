@@ -36,7 +36,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/checkout', [ActionsController::class, 'checkout'])->name('checkout');
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
     Route::get('/orders/checkout/{order}', [ActionsController::class, 'checkout'])->name('orders.checkout');
-    Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
+    Route::get('/orders/order/{order}', [OrderController::class, 'show'])->name('orders.show');
 
     // lipa na mpesa
     Route::post('/orders/pay/mpesa/stk-push', [StkPushController::class, 'stkInit'])->name('mpesa.stk-push');

@@ -3,11 +3,10 @@
 'isOrder' => false,
 ])
 
-<div class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-slate-600 md:p-6">
+<div class="max-w-2xl px-4 py-1.5 rounded-lg border border-gray-200 bg-white shadow-sm dark:border-gray-700 dark:bg-slate-800">
     <div class="space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
-        <a href="#" class="shrink-0 md:order-1">
-            <img class="h-20 w-20" src="/storage/{{ $item->product->image ?? '' }}" alt="{{ $item->product->name }} image" />
-        </a>
+        <img class="shrink-0 md:order-1 h-20 w-20" src="/storage/{{ $item->product->image ?? '' }}" alt="{{ $item->product->name }} image" />
+
         <div class="flex items-center justify-between md:order-3 md:justify-end">
             @if($isOrder)
                 <p class="text-sm font-medium">Quantity: {{ $item->quantity }}</p>
@@ -39,12 +38,12 @@
                 </div>
             @endif
             <div class="text-end md:order-4 md:w-32">
-                <p class="text-base font-bold text-gray-900 dark:text-white">{{ config('app.currency_symbol'). ' ' .$item->subtotal }}</p>
+                <p class="text-base font-bold text-gray-900 dark:text-white">{{ config('app.currency_symbol'). ' ' .number_format($item->subtotal, 2) }}</p>
             </div>
         </div>
 
         <div class="w-full min-w-0 flex-1 space-y-4 md:order-2 md:max-w-md">
-            <p class="text-base font-medium text-gray-900 hover:underline dark:text-white">{{ $item->product->name }}</p>
+            <a href="{{ route('products.show', $item->product->slug) }}" class="text-sm xl:text-base font-medium text-gray-900 hover:underline dark:text-white">{{ $item->product->name }}</a>
         </div>
     </div>
 </div>
