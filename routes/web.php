@@ -28,10 +28,6 @@ Route::get('/cart', [ActionsController::class, 'cart'])->name('cart');
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [ActionsController::class, 'dashboard'])->name('dashboard');
 
-    // products
-    Route::get('/products/add', [ProductController::class, 'create'])->name('products.add');
-    Route::post('/products/add', [ProductController::class, 'store'])->name('products.store');
-
     // checkout & orders
     Route::get('/checkout', [ActionsController::class, 'checkout'])->name('checkout');
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
@@ -57,7 +53,11 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
     // admin products
     Route::get('/admin/products', [AdminProductsController::class, 'products'])->name('admin.products');
+    // add products
+    Route::get('/admin/products/add', [ProductController::class, 'create'])->name('products.add');
+    Route::post('/admin/products/add', [ProductController::class, 'store'])->name('products.store');
     Route::get('/admin/products/edit/{product:slug}', [AdminProductsController::class, 'editProduct'])->name('admin.products.edit');
+
     // admin orders
 
     // activate mpesa urls for lipa na mpesa notifications

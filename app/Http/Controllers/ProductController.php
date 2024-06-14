@@ -15,7 +15,7 @@ class ProductController extends Controller
     public function index(): View
     {
         return view('pages.products.index', [
-            'products' => Product::all()
+            'products' => Product::where('is_active', true)->simplePaginate(30)
         ]);
     }
 

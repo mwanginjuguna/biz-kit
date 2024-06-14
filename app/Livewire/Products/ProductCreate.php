@@ -19,15 +19,16 @@ class ProductCreate extends Component
 
     public function productSave()
     {
-        //
-        $imagePath = Storage::disk('public')
-            ->putFileAs(
-                'products',
-                $this->productImage,
-                $this->productImage->getClientOriginalName()
-            );
+        if (isset($this->productImage)) {
+            $this->imagePath = Storage::disk('public')
+                ->putFileAs(
+                    'products',
+                    $this->productImage,
+                    $this->productImage->getClientOriginalName()
+                );
 
-        $this->form->image = $imagePath;
+            $this->form->image = $this->imagePath;
+        }
 
         $this->form->store();
 
