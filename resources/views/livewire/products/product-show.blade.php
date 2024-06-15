@@ -1,8 +1,11 @@
+<?php
+//dd($product->image)
+?>
 <div class="relative">
     <!-- Grid -->
     <div class="md:grid md:grid-cols-2 md:items-center md:gap-12 xl:gap-32">
         <div class="col-span-1 p-2">
-            <img class="rounded-xl w-full" src="/{{ 'storage/'.$product->image }}" alt="{{ $product->name }} Image">
+            <img class="rounded-xl w-full" src="/{{ 'storage/' . $product->image }}" alt="{{ $product->name }} Image">
         </div>
         <!-- End Col -->
 

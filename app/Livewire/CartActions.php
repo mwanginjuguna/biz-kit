@@ -23,8 +23,10 @@ class CartActions extends Component
     }
 
     #[On('add-to-cart')]
-    public function addToCart(Product $product, int $quantity = 1)
+    public function addToCart(int $productId, int $quantity = 1)
     {
+        $product = Product::findOrFail($productId);
+
         if (!is_null($this->cart->get($product->name, null))) {
             $item = $this->cart->get($product->name);
             $item['quantity'] += $quantity;
@@ -41,16 +43,16 @@ class CartActions extends Component
                     'subtotal' => $product->price * $quantity
                 ]
             );
-
-//            dd($this->cart);
         }
 
         $this->updateCart();
     }
 
     #[On('remove-from-cart')]
-    public function removeFromCart(Product $product, int $quantity = 1)
+    public function removeFromCart(int $productId, int $quantity = 1)
     {
+        $product = Product::findOrFail($productId);
+
         $item = $this->cart->get($product->name);
 
         if ($item['quantity'] > $quantity) {

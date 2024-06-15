@@ -40,7 +40,7 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Product $product)
+    public function show(Product $product): View
     {
         return view('pages.products.show', [
             'product' => $product,
