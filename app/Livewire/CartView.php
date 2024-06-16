@@ -15,6 +15,7 @@ class CartView extends Component
     public Collection $cart;
 
     public array $cartItems = [];
+
     public float $cartTotal = 0.01;
 
     public string $discountCode = '';
@@ -34,20 +35,20 @@ class CartView extends Component
         return $this->discount->isEmpty();
     }
 
-    public function addToWishlist(Product $product): void
+    public function addToWishlist(int $productId): void
     {
-        $this->dispatch('add-to-wishlist', product: $product);
+        $this->dispatch('add-to-wishlist', productId: $productId);
     }
 
-    public function addToCart(Product $product, int $quantity = 1): void
+    public function addToCart(int $productId, int $quantity = 1): void
     {
-        $this->dispatch('add-to-cart', $product, $quantity);
+        $this->dispatch('add-to-cart', $productId, $quantity);
         $this->updateCart();
     }
 
-    public function removeFromCart(Product $product, int $quantity = 1): void
+    public function removeFromCart(int $productId, int $quantity = 1): void
     {
-        $this->dispatch('remove-from-cart', $product, $quantity);
+        $this->dispatch('remove-from-cart', $productId, $quantity);
         $this->updateCart();
     }
 
