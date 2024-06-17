@@ -12,6 +12,7 @@ use Livewire\Component;
 class Checkout extends Component
 {
     public CreateAddressForm $form;
+
     public Order $order;
 
     public string $mpesaNumber = '';

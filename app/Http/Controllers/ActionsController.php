@@ -28,33 +28,31 @@ class ActionsController extends Controller
         return view('pages.cart');
     }
 
-    public function checkout(Order $order = null): View
+    public function checkout(Order $order = null): View|RedirectResponse
     {
         $cartItems = session()->get('cart', new Collection);
         $cartTotal = session()->get('cart-total');
 
-        if ($cartItems->isEmpty()) {
-            if (is_null($order)) {
-                $order = Order::query()
-                    ->where('user_id', '=', Auth::id())
-                    ->where('is_paid', '=', false)
-                    ->first();
-            }
-        } else {
-            // generate a random order_number value
-            $orNo = rand(0001, 99999) . '_' . strtoupper(Str::random('6'));
+        // ensure the cart is set in session
+        if ($cartItems->isEmpty() && is_null($order)) {
+            return redirect()->route('cart')->with('Error', 'Something went wrong! Please add products to cart.');
+        }
 
-            // create a new order
+        // process the cart
+        if (!$cartItems->isEmpty()) {
+            // generate a random order_number value
+            $orderNumber = rand(0001, 99999) . '_' . strtoupper(Str::random('6'));
+
             $order = Order::create([
                 'user_id' => Auth::user()->id,
-                'order_number' => $orNo,
+                'order_number' => $orderNumber,
                 'subtotal' => $cartTotal,
                 'total' => $cartTotal,
                 'customer_name' => Auth::user()->name,
                 'customer_email' => Auth::user()->email,
             ]);
 
-            // order items
+            // create order items
             Arr::map($cartItems->values()->toArray(), function ($item) use ($order) {
                 OrderItem::updateOrCreate([
                     'order_id' => $order->id,
@@ -68,15 +66,12 @@ class ActionsController extends Controller
             });
         }
 
-        $orderItems = OrderItem::query()->where('order_id', '=', $order->id)->with(['product'])->get();
-
         // destroy the cart
         session()->forget(['cart', 'cart-total']);
 
         // redirect to order checkout
         return view('pages.orders.checkout', [
-            'order' => $order,
-            'orderItems' => $orderItems
+            'order' => $order->with('products', 'orderItems')->first()
         ]);
     }
 }

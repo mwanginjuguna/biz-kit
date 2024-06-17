@@ -1,6 +1,3 @@
-@php
-    // dd($order->items->first()->product)
-@endphp
 <div class="px-4">
     <h4 class="w-max px-2 py-1 bg-slate-200 dark:bg-slate-700 border dark:border-slate-600 rounded-lg text-sm lg:text-lg font-medium text-amber-600 dark:text-amber-400">Thank You! It's ready to ship.</h4>
     <h1 class="my-3 py-2 text-xl text-2xl font-extrabold text-slate-800 dark:text-slate-300">Checkout</h1>
