@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Category;
 use App\Models\ContactMessage;
+use App\Models\Currency;
 use App\Models\Discount;
 use App\Models\Order;
 use App\Models\OrderItem;
@@ -22,13 +23,20 @@ use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
+    private array $currencies = [
+        ['name' => 'USD', 'rate' => 125.50, 'symbol' => '$'],
+        ['name' => 'EUR', 'rate' => 132.79, 'symbol' => '€'],
+        ['name' => 'GBP', 'rate' => 157.50, 'symbol' => '£'],
+        ['name' => 'CNY', 'rate' => 14.60, 'symbol' => '¥']
+    ];
+
     /**
      * Seed the application's database.
      */
     public function run(): void
     {
         // dummy data for local testing
-        if (config('app.env') == 'local') {
+        if (config('app.env') == 'localized') {
             // admin user
             $admin = User::factory()->create([
                 'name' => 'Admin',
@@ -149,6 +157,10 @@ class DatabaseSeeder extends Seeder
             Product::factory(15)
                 ->has(ProductFeature::factory()->count(3))
                 ->create();
+        }
+
+        foreach ($this->currencies as $currency) {
+            Currency::create($currency);
         }
     }
 }

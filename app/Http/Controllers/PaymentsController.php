@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Currency;
 use App\Models\Order;
 use App\Models\Payment;
 use Illuminate\Http\JsonResponse;
@@ -14,8 +15,12 @@ class PaymentsController extends Controller
 {
     public function pay(Order $order): JsonResponse|RedirectResponse
     {
-        $amount = $order->total;
-        $currency = $order->currency ?? 'USD';
+        $amountInfo = session('currencyName');
+
+        dd($amountInfo);
+
+        $amount = $amountInfo['amount'] ?? ($order->total / Currency::firstWhere('name', $amountInfo['currencyName'])->rate);
+        $currency = $amountInfo['currencyName'] ?? 'USD' ?? $order->currency;
 
         // initialize paypal client
         $provider = new PayPal();

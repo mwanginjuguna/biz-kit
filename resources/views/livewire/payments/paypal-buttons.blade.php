@@ -1,7 +1,9 @@
 <div>
     <div class="py-6 rounded-lg flex flex-col space-x-3">
         <p class="w-fit px-6 mb-4 py-2 text-amber-500 text-sm font-bold rounded-md">
-            Total Due: <span class="underline ml-4">{{ config('app.currency_symbol') }} {{ $amount }}</span>
+            Total Due: <span class="underline ml-4">
+                {{ config('app.currency_symbol') }} {{ number_format($amount, 2) }} / {{ $currencySymbol . ' ' . number_format($currencyAmount, 2) }}
+            </span>
         </p>
         <input id="order-id" class="hidden" hidden value="{{ $order->id }}">
 
@@ -10,31 +12,12 @@
 
     <!--Paypal javascript-->
     @assets
-    <script src="https://www.paypal.com/sdk/js?client-id={{ config('app.env') === 'production' ? config('paypal.live.client_id') : config('paypal.sandbox.client_id')}}&currency={{ config('app.currency', 'USD') }}"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id={{ config('app.env') === 'production' ? config('paypal.live.client_id') : config('paypal.sandbox.client_id')}}&currency={{ $currencyName ?? 'USD' }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @endassets
 
     @script
     <script>
-
-        function flash(title, message, level = 'success') {
-            return new Swal.fire(title, message, level);
-        }
-
-        function paid() {
-            console.log('Running paid() function to redirect to recent orders')
-            const a = Object.assign(
-                document.createElement('a'),
-                {
-                    href: `/orders/${order_id}`,
-                    style:"display: none",
-                });
-            document.body.appendChild(a);
-            a.click();
-
-            window.location.href = '/orders/'+order_id;
-        }
-
         const order_id = document.getElementById('order-id').value;
 
         await paypal.Buttons({
@@ -84,7 +67,7 @@
                     let errorDetail = Array.isArray(orderData.details) && orderData.details[0];
 
                     if (errorDetail && errorDetail.issue === 'INSTRUMENT_DECLINED') {
-                        flash('Critical Error!', `Payment Instrument Declined! Try Again.`, 'error');
+                        flash('Critical Error!', `Payment Instrument Declined! Try Again.`, 'danger');
                         return actions.restart(); // Recoverable state, per:
                         // https://developer.paypal.com/docs/checkout/integration-features/funding-failure/
                     }
@@ -92,7 +75,7 @@
                     if (errorDetail) {
                         if (errorDetail.description) msg += '\n\n' + errorDetail.description;
                         if (orderData.debug_id) msg += ' (' + orderData.debug_id + ')';
-                        flash('Fatal Error!', `${msg}`, 'error'); // Show a failure message (try to avoid alerts in production environments)
+                        flash('Fatal Error!', `${msg}`, 'danger'); // Show a failure message (try to avoid alerts in production environments)
                     }
                     flash('Fatal Error!', `Order was Cancelled (Status: ${orderData.error.name})! \n Error Message: ${orderData.error.message}.\n TRY AGAIN!`, 'error');
                 });

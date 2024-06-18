@@ -71,7 +71,7 @@ class ActionsController extends Controller
 
         // redirect to order checkout
         return view('pages.orders.checkout', [
-            'order' => $order->with('products', 'orderItems')->first()
+            'order' => $order->with('products', 'orderItems')->where('id', $order->id)->first()
         ]);
     }
 }

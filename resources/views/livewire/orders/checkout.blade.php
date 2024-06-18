@@ -186,31 +186,33 @@
                             <dl class="flex items-center justify-between gap-4 py-3">
                                 <dt class="text-base font-normal text-gray-500 dark:text-gray-400">Subtotal</dt>
                                 <dd class="text-base font-medium text-gray-900 dark:text-white">
-                                    {{ config('app.currency_symbol'). ' '. $order->subtotal }}
+                                    {{ config('app.currency_symbol'). ' '. number_format($order->subtotal, 2) }}
                                 </dd>
                             </dl>
 
                             <dl class="flex items-center justify-between gap-4 py-3">
                                 <dt class="text-base font-normal text-gray-500 dark:text-gray-400">Savings</dt>
                                 <dd class="text-base font-medium text-green-500">
-                                    {{ config('app.currency_symbol'). ' '. ($order->subtotal - $order->total) }}
+                                    {{ config('app.currency_symbol'). ' '. number_format($order->subtotal - $order->total,2) }}
                                 </dd>
                             </dl>
 
                             <dl class="flex items-center justify-between gap-4 py-3">
                                 <dt class="text-base font-normal text-gray-500 dark:text-gray-400">Store Pickup</dt>
-                                <dd class="text-base font-medium text-gray-900 dark:text-white">0</dd>
+                                <dd class="text-base font-medium text-gray-900 dark:text-white">
+                                    {{ config('app.currency_symbol'). ' '. isset($order->shipping_fee) ? number_format($sh = $order->shipping_fee, 2) : '0.00' }}
+                                </dd>
                             </dl>
 
                             <dl class="flex items-center justify-between gap-4 py-3">
                                 <dt class="text-base font-normal text-gray-500 dark:text-gray-400">Tax</dt>
-                                <dd class="text-base font-medium text-gray-900 dark:text-white">{{ $order->tax ?? 0 }}</dd>
+                                <dd class="text-base font-medium text-gray-900 dark:text-white">{{ isset($order->total) ? number_format($tx = $order->tax, 2) : '0.00' }}</dd>
                             </dl>
 
                             <dl class="flex items-center justify-between gap-4 py-3">
                                 <dt class="text-base font-bold text-gray-900 dark:text-white">Total</dt>
                                 <dd class="text-base font-bold text-gray-900 dark:text-white">
-                                    {{ config('app.currency_symbol'). ' '. $order->total }}
+                                    {{ config('app.currency_symbol'). ' '. number_format($payable = $order->total + $tx + $sh, 2) }}
                                 </dd>
                             </dl>
                         </div>
@@ -227,7 +229,7 @@
                             Lipa na Mpesa
                         </button>
 
-                        <livewire:payments.paypal-buttons :order="$order" />
+                        <livewire:payments.paypal-buttons :order="$order" :amount="$payable" />
                     </div>
                 </div>
             </div>

@@ -33,7 +33,7 @@
                 </button>
             </div>
             <div class="text-end md:order-4 md:w-32">
-                <p class="text-base font-bold text-gray-900 dark:text-white">{{ config('app.currency_symbol') }} {{ $product['subtotal'] }}</p>
+                <p class="text-base font-bold text-gray-900 dark:text-white">{{ config('app.currency_symbol') }} {{ number_format($product['subtotal'], 2) }}</p>
             </div>
         </div>
 

@@ -1,7 +1,3 @@
-function cartFunc() {
-    console.log('function in a cart.')
-}
-
 function initializeCart() {
     localStorage.setItem('cart', '');
     console.log("cart initialized");

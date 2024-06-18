@@ -17,10 +17,12 @@ class CartView extends Component
     public array $cartItems = [];
 
     public float $cartTotal = 0.01;
+    public float $tax = 0.00;
+    public float $pickupFee = 0.00;
 
     public string $discountCode = '';
 
-    private Collection $discount;
+    public Collection $discount;
 
     public function applyDiscount()
     {
